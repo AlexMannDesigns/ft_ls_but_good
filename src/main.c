@@ -27,7 +27,7 @@ static char *get_sort(t_ls state)
     return ("error");
 }
 
-void    print_state(t_ls state)
+void    print_options_state(t_ls state)
 {
     printf(
         "display = %s\nsort = %s\nrecursive = %d\nreversed = %d\nall = %d\nargv_idx = %d\n",
@@ -50,7 +50,7 @@ int main(int argc, char **argv)
     (void) argc;
     ft_bzero(&state, sizeof(t_ls));
     options_control(&state, argv);
-    print_state(state);
+    print_options_state(state);
     return (0);
 }
 
