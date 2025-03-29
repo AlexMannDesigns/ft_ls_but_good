@@ -10,7 +10,8 @@
 # define OPTIONS "RSalmnrt1"
 # define USAGE "usage: ./ft_ls [-RSalmnrt] [file ...]"
 
-/*** Structs ***/
+
+/*** Enums ***/
 
 typedef enum e_display
 {
@@ -27,6 +28,9 @@ typedef enum e_sort
     SIZE,
 }   t_sort;
 
+
+/*** Structs ***/
+
 typedef struct s_options
 {
     t_display       display;
@@ -42,6 +46,10 @@ typedef struct s_ls
     unsigned int    argv_index;
 }                   t_ls;
 
+/*** Typedefs ***/
+
+typedef int (*t_option_handler)(t_options *, char);
+
 
 /*** Functions ***/
 
@@ -52,6 +60,10 @@ int options_control(t_ls *state, char **argv);
 
 /* set_options.c */
 int set_options(t_options *options, char *arg);
+
+/* options_utils.c */
+int  is_valid_option(char option);
+int  set_option_value(unsigned int *option, int value);
 
 
 /* ERROR */

@@ -1,22 +1,6 @@
 
 #include "ft_ls.h"
-#include "libft.h"
-
-static int  is_valid_option(char option)
-{
-    if (!ft_strchr(OPTIONS, option))
-    {
-        print_options_error(option);
-        return (FALSE);
-    }
-    return (TRUE);
-}
-
-static int  set_option_value(unsigned int *option, int value)
-{
-    *option = value;
-    return (TRUE);
-}
+#include <stdlib.h>
 
 static int set_display(t_options *options, char option)
 {
@@ -49,23 +33,38 @@ static int set_misc(t_options *options, char option)
     return (FALSE);
 }
 
+static const t_option_handler *get_option_handlers(void)
+{
+    static const t_option_handler dispatch_table[] = {
+        set_display,
+        set_sort,
+        set_misc,
+        NULL
+    };
+    return (dispatch_table);
+}
+
 int set_options(t_options *options, char *arg)
 {
     int     i;
+    size_t  j;
     char    option;
+    const t_option_handler *handlers;
 
+    handlers = get_option_handlers();
     i = 1;
     while (arg[i])
     {
         option = arg[i];
         if (!is_valid_option(option))
             return (FALSE);
-        if (set_display(options, option))
-             ;
-        else if (set_sort(options, option))
-             ;
-        else if (set_misc(options, option))
-             ;
+        j = 0;
+        while (handlers[j])
+        {
+            if (handlers[j](options, option))
+                break ;
+            j++;
+        }
         i++;
     }
     return (TRUE);
