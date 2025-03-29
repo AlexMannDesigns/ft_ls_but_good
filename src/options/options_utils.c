@@ -11,7 +11,7 @@ int  is_valid_option(char option)
     return (TRUE);
 }
 
-int  set_option_value(unsigned int *option, int value)
+int  set_option_value(unsigned int *option, unsigned int value)
 {
     *option = value;
     return (TRUE);

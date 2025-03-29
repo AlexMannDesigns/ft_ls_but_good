@@ -63,7 +63,7 @@ int set_options(t_options *options, char *arg);
 
 /* options_utils.c */
 int  is_valid_option(char option);
-int  set_option_value(unsigned int *option, int value);
+int  set_option_value(unsigned int *option, unsigned int value);
 
 
 /* ERROR */
