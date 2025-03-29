@@ -2,7 +2,7 @@
 #ifndef FT_LS_H
 # define FT_LS_H
 
-/*** Defined values & enums ***/
+/*** Predefined values ***/
     
 # define TRUE 1
 # define FALSE 0
