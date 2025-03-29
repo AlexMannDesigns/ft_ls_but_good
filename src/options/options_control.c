@@ -22,7 +22,7 @@ static int is_double_line(unsigned int *idx, char *arg)
     return (FALSE);
 }
 
-static void initialise_options(t_options *options)
+static void set_default_options(t_options *options)
 {
     options->display = COLUMNS;
     options->sort = LEXICOGRAPHICAL;
@@ -34,7 +34,7 @@ int options_control(t_ls *state, char **argv)
     char    *arg;
     unsigned int *idx;
 
-    initialise_options(&(state->options));
+    set_default_options(&(state->options));
     idx = &(state->argv_index);
     *idx = 1;
     while (argv[*idx])
