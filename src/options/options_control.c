@@ -2,7 +2,7 @@
 #include "ft_ls.h"
 #include "libft.h"
 
-static int  arg_is_option_string(char *arg)
+static int  arg_is_options(char *arg)
 {
     return (!(arg[0] != '-' || ft_strequ(arg, "-")));
 }
@@ -40,7 +40,7 @@ int options_control(t_ls *state, char **argv)
     while (argv[*idx])
     {
         arg = argv[*idx];
-        if (!arg_is_option_string(arg) || is_double_line(idx, arg))
+        if (!arg_is_options(arg) || is_double_line(idx, arg))
             break ;
         if (!set_options(&(state->options), arg))
             return (FALSE);
