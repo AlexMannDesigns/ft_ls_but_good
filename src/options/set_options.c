@@ -27,12 +27,12 @@ static int set_sort(t_options *options, char option)
 static int set_misc(t_options *options, char option)
 {
     if (option == 'R')
-        return (set_option_value(&(options->recursive), TRUE));
+        return set_misc_option_bit(&(options->misc), RECURSIVE);
     if (option == 'r')
-        return (set_option_value(&(options->reversed), TRUE));
+        return set_misc_option_bit(&(options->misc), REVERSED);
     if (option == 'a')
-        return (set_option_value(&(options->all), TRUE));
-    // We should never get here
+        return set_misc_option_bit(&(options->misc), ALL);
+    // This should be unreachable code
     ft_putstr_fd("Error: All options checked, no match found\n", STDERR_FILENO);
     assert(FALSE);
 }

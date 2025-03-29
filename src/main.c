@@ -33,9 +33,9 @@ void    print_state(t_ls state)
         "display = %s\nsort = %s\nrecursive = %d\nreversed = %d\nall = %d\nargv_idx = %d\n",
         get_display(state),
         get_sort(state),
-        state.options.recursive,
-        state.options.reversed,
-        state.options.all,
+        check_misc_option_bit(state.options.misc, RECURSIVE),
+        check_misc_option_bit(state.options.misc, REVERSED),
+        check_misc_option_bit(state.options.misc, ALL),
         state.argv_index
     );
 
