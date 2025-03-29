@@ -12,7 +12,8 @@ GNL_INCLUDE_DIR := $(LIBFT_DIR)/get_next_line
 
 SRC_DIR = ./src
 
-SRC_FILES = main.c options/options_control.c options/set_options.c options/options_utils.c error/print_error.c
+SRC_FILES = main.c options/options_control.c options/set_options.c options/options_utils.c \
+		error/print_error.c print/print_options_state.c
 
 OBJ_DIR = ./obj
 OBJS := $(patsubst %, $(OBJ_DIR)/%, $(SRC_FILES:.c=.o))

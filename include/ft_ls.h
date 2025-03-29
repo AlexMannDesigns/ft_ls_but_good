@@ -35,6 +35,7 @@ typedef enum e_misc_bits
     ALL,
 }   t_misc_bits;
 
+
 /*** Structs ***/
 
 typedef struct s_options
@@ -49,6 +50,7 @@ typedef struct s_ls
     t_options       options;
     unsigned int    argv_index;
 }                   t_ls;
+
 
 /*** Typedefs ***/
 
@@ -77,5 +79,11 @@ int     check_misc_option_bit(unsigned int misc, unsigned int bit);
 /* print_error.c */
 void    print_options_error(char options);
 void    print_unrecognized_option_error(char *arg);
+
+
+/* Print */
+
+/* print_options_state.c */
+void    print_options_state(t_ls state);
 
 # endif
