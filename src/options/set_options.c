@@ -1,5 +1,7 @@
 
 #include "ft_ls.h"
+#include "libft.h"
+#include <assert.h>
 #include <stdlib.h>
 
 static int set_display(t_options *options, char option)
@@ -30,7 +32,9 @@ static int set_misc(t_options *options, char option)
         return (set_option_value(&(options->reversed), TRUE));
     if (option == 'a')
         return (set_option_value(&(options->all), TRUE));
-    return (FALSE);
+    // We should never get here
+    ft_putstr_fd("Error: All options checked, no match found\n", STDERR_FILENO);
+    assert(FALSE);
 }
 
 static const t_option_handler *get_option_handlers(void)
@@ -46,10 +50,10 @@ static const t_option_handler *get_option_handlers(void)
 
 int set_options(t_options *options, char *arg)
 {
-    int     i;
-    size_t  j;
-    char    option;
-    const t_option_handler *handlers;
+    const t_option_handler  *handlers;
+    int                     i;
+    size_t                  j;
+    char                    option;
 
     handlers = get_option_handlers();
     i = 1;
