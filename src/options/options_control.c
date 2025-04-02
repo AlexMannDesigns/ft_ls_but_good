@@ -14,11 +14,6 @@ static int is_double_line(unsigned int *idx, char *arg)
         (*idx)++;
         return (TRUE);
     }
-    if (arg[0] == '-' && arg[1] == '-')
-    {    
-        print_unrecognized_option_error(arg);
-        return (TRUE);
-    }
     return (FALSE);
 }
 
@@ -37,17 +32,12 @@ int options_control(t_ls *state, char **argv)
     set_default_options(&(state->options));
     idx = &(state->argv_index);
     *idx = 1;
-
-    // For testing
-    if (state->testing)
-        *idx = 2;
-   
     while (argv[*idx])
     {
         arg = argv[*idx];
         if (!arg_is_options(arg) || is_double_line(idx, arg))
             break ;
-        if (!set_options(&(state->options), arg))
+        if (!set_options_control(state, arg))
             return (FALSE);
         (*idx)++;
     }

@@ -20,10 +20,6 @@ int main(int argc, char **argv)
 
     (void) argc;
     ft_bzero(&state, sizeof(t_ls));
-
-    // for testing
-    state.testing = check_testing(argc, argv);
-
     if (!options_control(&state, argv))
         return (1);
     if (state.testing)

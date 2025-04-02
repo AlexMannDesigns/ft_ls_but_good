@@ -1,7 +1,4 @@
-
 #include "ft_ls.h"
-#include "libft.h"
-#include <assert.h>
 #include <stdlib.h>
 
 static int set_display(t_options *options, char option)
@@ -35,7 +32,7 @@ static int set_misc(t_options *options, char option)
     
     // This should be unreachable code
     print_valid_option_not_handled_error(option);
-    assert(FALSE);
+    exit(EXIT_FAILURE);
 }
 
 static const t_option_handler *get_option_handlers(void)
@@ -49,28 +46,18 @@ static const t_option_handler *get_option_handlers(void)
     return (dispatch_table);
 }
 
-int set_options(t_options *options, char *arg)
+void    handle_single_char_option(t_options *options, char option)
 {
     const t_option_handler  *handlers;
     int                     i;
-    size_t                  j;
-    char                    option;
-
+    
     handlers = get_option_handlers();
-    i = 1;
-    while (arg[i])
+    i = 0;
+    while (handlers[i])
     {
-        option = arg[i];
-        if (!is_valid_option(option))
-            return (FALSE);
-        j = 0;
-        while (handlers[j])
-        {
-            if (handlers[j](options, option))
-                break ;
-            j++;
-        }
+        if (handlers[i](options, option))
+            break ;
         i++;
     }
-    return (TRUE);
+    return ;
 }

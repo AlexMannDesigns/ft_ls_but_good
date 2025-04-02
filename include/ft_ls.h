@@ -10,7 +10,7 @@
 
 # define OPTIONS "RSalmnrt1"
 # define USAGE "usage: ./ft_ls [-RSalmnrt] [file ...]"
-# define TEST "TEST"
+# define TEST "--TEST"
 
 
 /*** Enums ***/
@@ -64,17 +64,22 @@ typedef int (*t_option_handler)(t_options *, char);
 
 /* OPTIONS */
 
+/* handle_word_options.c */
+int             handle_word_options(t_ls *state, char *arg);
+
+/* handle_single_char_options.c */
+void            handle_single_char_option(t_options *options, char option);
+
 /* options_control.c */
 int             options_control(t_ls *state, char **argv);
 
-/* set_options.c */
-int             set_options(t_options *options, char *arg);
-
 /* options_utils.c */
-int             is_valid_option(char option);
 int             set_option_value(unsigned int *option, unsigned int value);
 int             set_misc_option_bit(unsigned int *misc, unsigned int bit);
 int             check_misc_option_bit(unsigned int misc, unsigned int bit);
+
+/* set_options_control.c */
+int             set_options_control(t_ls *state, char *arg);
 
 
 /* ERROR */
