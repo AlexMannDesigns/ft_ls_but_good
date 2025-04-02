@@ -37,6 +37,11 @@ int options_control(t_ls *state, char **argv)
     set_default_options(&(state->options));
     idx = &(state->argv_index);
     *idx = 1;
+
+    // For testing
+    if (state->testing)
+        *idx = 2;
+   
     while (argv[*idx])
     {
         arg = argv[*idx];

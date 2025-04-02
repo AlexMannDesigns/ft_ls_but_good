@@ -32,8 +32,9 @@ static int set_misc(t_options *options, char option)
         return set_misc_option_bit(&(options->misc), REVERSED);
     if (option == 'a')
         return set_misc_option_bit(&(options->misc), ALL);
+    
     // This should be unreachable code
-    ft_putstr_fd("Error: All options checked, no match found\n", STDERR_FILENO);
+    print_valid_option_not_handled_error(option);
     assert(FALSE);
 }
 

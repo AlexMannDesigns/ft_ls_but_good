@@ -2,6 +2,7 @@
 #ifndef FT_LS_H
 # define FT_LS_H
 
+
 /*** Predefined values ***/
     
 # define TRUE 1
@@ -9,6 +10,7 @@
 
 # define OPTIONS "RSalmnrt1"
 # define USAGE "usage: ./ft_ls [-RSalmnrt] [file ...]"
+# define TEST "TEST"
 
 
 /*** Enums ***/
@@ -49,6 +51,7 @@ typedef struct s_ls
 {
     t_options       options;
     unsigned int    argv_index;
+    unsigned int    testing;
 }                   t_ls;
 
 
@@ -62,28 +65,34 @@ typedef int (*t_option_handler)(t_options *, char);
 /* OPTIONS */
 
 /* options_control.c */
-int     options_control(t_ls *state, char **argv);
+int             options_control(t_ls *state, char **argv);
 
 /* set_options.c */
-int     set_options(t_options *options, char *arg);
+int             set_options(t_options *options, char *arg);
 
 /* options_utils.c */
-int     is_valid_option(char option);
-int     set_option_value(unsigned int *option, unsigned int value);
-int     set_misc_option_bit(unsigned int *misc, unsigned int bit);
-int     check_misc_option_bit(unsigned int misc, unsigned int bit);
+int             is_valid_option(char option);
+int             set_option_value(unsigned int *option, unsigned int value);
+int             set_misc_option_bit(unsigned int *misc, unsigned int bit);
+int             check_misc_option_bit(unsigned int misc, unsigned int bit);
 
 
 /* ERROR */
 
 /* print_error.c */
-void    print_options_error(char options);
-void    print_unrecognized_option_error(char *arg);
+void            print_options_error(char options);
+void            print_unrecognized_option_error(char *arg);
+void            print_valid_option_not_handled_error(char option);
 
-
-/* Print */
+/* PRINT */
 
 /* print_options_state.c */
-void    print_options_state(t_ls state);
+void            print_options_state(t_ls state);
+
+
+/* TEST */
+
+/* test_utils.c */
+unsigned int    check_testing(int argc, char **argv);
 
 # endif
