@@ -1,7 +1,6 @@
 
 #include "ft_ls.h"
 #include "libft.h"
-#include <stdlib.h>
 
 static int arg_is_word_option(char *arg)
 {

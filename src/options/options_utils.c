@@ -1,5 +1,4 @@
 #include "ft_ls.h"
-#include "libft.h"
 
 int  set_option_value(unsigned int *option, unsigned int value)
 {

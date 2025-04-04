@@ -26,8 +26,8 @@ static void set_default_options(t_options *options)
 
 int options_control(t_ls *state, char **argv)
 {
-    char    *arg;
-    unsigned int *idx;
+    char            *arg;
+    unsigned int    *idx;
 
     set_default_options(&(state->options));
     idx = &(state->argv_index);
