@@ -4,9 +4,7 @@
 
 static int arg_is_word_option(char *arg)
 {
-    if (ft_strlen(arg) > 2 && arg[0] == '-' && arg[1] == '-')
-        return (TRUE);
-    return (FALSE);
+    return (ft_strlen(arg) > 2 && arg[0] == '-' && arg[1] == '-');
 }
 
 static int  is_valid_option(char option)
