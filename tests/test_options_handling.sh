@@ -88,6 +88,7 @@ function test_complex_options () {
     # Test cases array
     TEST_CASES=(
         "-la"
+        "-la ~ /"
         "-l -a"
         "-l -r -t"
         "-a -rS"
@@ -97,6 +98,7 @@ function test_complex_options () {
 
     # Expected output array
     EXPECTED_OUTPUT_ARRAY=(
+        "display = long\nsort = lexicographical\nrecursive = 0\nreversed = 0\nall = 1\nargv_idx = 3"
         "display = long\nsort = lexicographical\nrecursive = 0\nreversed = 0\nall = 1\nargv_idx = 3"
         "display = long\nsort = lexicographical\nrecursive = 0\nreversed = 0\nall = 1\nargv_idx = 4"
         "display = long\nsort = time\nrecursive = 0\nreversed = 1\nall = 0\nargv_idx = 5"
@@ -262,6 +264,7 @@ TMP_FILES=()
 cleanup() { rm -f "${TMP_FILES[@]}"; }
 trap cleanup EXIT
 
+# call test functions
 test_basic_options
 test_complex_options
 test_option_repetition
