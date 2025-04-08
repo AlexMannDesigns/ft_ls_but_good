@@ -1,4 +1,5 @@
 #include "ft_ls.h"
+#include <stdlib.h>
 #include <stdio.h>
 
 static char *get_display(t_ls state)
@@ -25,7 +26,7 @@ static char *get_sort(t_ls state)
     return ("error");
 }
 
-void    print_options_state(t_ls state)
+void    print_options_state_and_exit(t_ls state)
 {
     printf(
         "display = %s\nsort = %s\nrecursive = %d\nreversed = %d\nall = %d\nargv_idx = %d\n",
@@ -36,6 +37,5 @@ void    print_options_state(t_ls state)
         check_misc_option_bit(state.options.misc, ALL),
         state.argv_index
     );
-
-    return ;
+    exit(EXIT_SUCCESS);
 }

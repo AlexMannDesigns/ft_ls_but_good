@@ -92,7 +92,7 @@ void            print_valid_option_not_handled_error(char option);
 /* PRINT */
 
 /* print_options_state.c */
-void            print_options_state(t_ls state);
+void            print_options_state_and_exit(t_ls state);
 
 
 /* TEST */
