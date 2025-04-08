@@ -33,6 +33,7 @@ static int set_misc(t_options *options, char option)
     // This should be unreachable code
     print_valid_option_not_handled_error(option);
     exit(EXIT_FAILURE);
+    // return (FALSE);
 }
 
 static const t_option_handler *get_option_handlers(void)

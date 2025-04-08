@@ -52,6 +52,9 @@ typedef struct s_ls
     t_options       options;
     unsigned int    argv_index;
     unsigned int    testing;
+    char            **dir_arr;
+    char            **regular_files;
+    char            **invalid_args;
 }                   t_ls;
 
 
@@ -84,10 +87,20 @@ int             set_options_control(t_ls *state, char *arg);
 
 /* ERROR */
 
-/* print_error.c */
+/* print_ls_error.c */
 void            print_options_error(char options);
 void            print_unrecognized_option_error(char *arg);
+
+/* print_custom_error.c */
 void            print_valid_option_not_handled_error(char option);
+void            print_malloc_error_and_exit(void);
+
+
+/* FT_LS */
+
+/* ft_ls_control.c */
+void            ft_ls_control(t_ls *state, char **argv);
+
 
 /* PRINT */
 
