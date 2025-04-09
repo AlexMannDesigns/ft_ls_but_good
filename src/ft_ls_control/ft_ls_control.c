@@ -1,6 +1,7 @@
 
 #include "ft_ls.h"
 #include "libft.h"
+#include <stdio.h>
 #include <stdlib.h>
 
 /*
@@ -67,11 +68,13 @@ void    no_filename_args(t_ls *state)
 
 void    add_invalid_arg(t_ls *state, char **argv, char *filename)
 {
-    size_t next_idx;
+    size_t  next_idx;
+    size_t  remaining_argv_len;
     
     if (!(state->invalid_args))
     {
-        state->invalid_args = (char **) ft_memalloc(sizeof(char *) * (ft_array_len(argv + state->argv_index) + 1));
+        remaining_argv_len = ft_array_len(argv + state->argv_index);
+        state->invalid_args = (char **) ft_memalloc(sizeof(char *) * (remaining_argv_len + 1));
         if (!(state->invalid_args))
             print_malloc_error_and_exit();
     }
@@ -110,6 +113,7 @@ void    print_invalid_args(char **invalid_args)
 
     if (!invalid_args)
         return ;
+    // do array sorting here, always standard lexicographical, even with the -r flag
     i = 0;
     while (invalid_args[i])
     {
@@ -130,7 +134,10 @@ void    print_invalid_args(char **invalid_args)
     
     NB:
     - only print name of dir before contents (e.g. libft: ) if more than one filename is passed as arg (valid or not)
-        - total_num_filename_args or similar should be set...?
+        - total_num_filename_args or similar should be set...? We need some way of deciding whether to print it 
+        - furthermore, the 'title' printed of each dir appears to just be the path that was passed
+            - (e.g. '~' expands to absolute path to HOME, "ls ../../foo bar" foo would not be changed to an absolute path)
+            - with the -R option, if no file is specified, it refers to current dir as '.' i.e. './libft:' etc)
     - array index variables should be size_t, let's keep it consistent
     
     // consider the following set-up for this function:
