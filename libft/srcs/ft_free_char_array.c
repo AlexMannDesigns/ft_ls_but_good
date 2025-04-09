@@ -27,4 +27,5 @@ void	ft_free_char_array(char ***char_array)
 		i++;
 	}
 	free(arr);
+    *char_array = NULL;
 }
