@@ -2,6 +2,13 @@
 #ifndef FT_LS_H
 # define FT_LS_H
 
+/*** Header files ***/
+
+/* for the stat struct */
+# include <sys/stat.h>
+
+/* for t_list struct */
+# include "libft.h"
 
 /*** Predefined values ***/
     
@@ -40,6 +47,13 @@ typedef enum e_misc_bits
 
 /*** Structs ***/
 
+typedef struct s_file_info
+{
+    char            *command_line;
+    char            *path;
+    struct stat     file_info;
+}                   t_file_info;
+
 typedef struct s_options
 {
     t_display       display;
@@ -52,8 +66,8 @@ typedef struct s_ls
     t_options       options;
     unsigned int    argv_index;
     unsigned int    testing;
-    char            **dir_arr;
-    char            **regular_files;
+    t_list          *directories;
+    t_list          *regular_files;
     char            **invalid_args;
 }                   t_ls;
 
