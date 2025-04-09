@@ -15,16 +15,16 @@ int    ft_ls_recursion_control(t_ls *state, t_dir_info dir)
 }
 */
 
-void    free_file_info(void *file_info_content, size_t file_info_size)
+void    free_file_info(void *file_info_content, size_t n)
 {
     t_file_info *file_info;
 
+    (void) n;
     file_info = (void *) file_info_content;
     if (file_info->command_line)
         ft_strdel(&(file_info->command_line));
     if (file_info->path)
         ft_strdel(&(file_info->path));
-    ft_bzero((void *) file_info, file_info_size);
     return ;
 }
 
