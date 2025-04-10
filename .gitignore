@@ -2,4 +2,4 @@ ft_ls
 compile_commands.json
 obj/
 .cache/
-test_errors.log
+*.log

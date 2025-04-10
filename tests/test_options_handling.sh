@@ -256,7 +256,7 @@ TEST_PASS="${GREEN}PASS${NC} ✅"
 TEST_FAIL="${RED}FAIL${NC} ❌"
 
 # setup error log file
-ERROR_LOG="test_errors.log"
+ERROR_LOG="test_option_errors.log"
 > "$ERROR_LOG"
 
 # setup temp files array and cleanup 
