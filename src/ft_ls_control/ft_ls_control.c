@@ -107,24 +107,6 @@ void    filename_args_control(t_ls *state, char **argv)
     return ;
 }
 
-void    print_invalid_args(char **invalid_args)
-{
-    size_t  i;
-
-    if (!invalid_args)
-        return ;
-    // do array sorting here, always standard lexicographical, even with the -r flag
-    i = 0;
-    while (invalid_args[i])
-    {
-        ft_putstr_fd("ft_ls: ", STDERR_FILENO);
-        ft_putstr_fd(invalid_args[i], STDERR_FILENO);
-        ft_putendl_fd(": No such file or directory", STDERR_FILENO);
-        i++;
-    }
-    return ;
-}
-
 /*
     - validate paths in argv, adding files to one array, dirs to another and invalid paths to another
     - sort the arrays based on sort option
@@ -158,7 +140,7 @@ void ft_ls_control(t_ls *state, char **argv)
      
     filename_args_control(state, argv);
     
-    print_invalid_args(state->invalid_args);
+    print_invalid_args(&(state->invalid_args));
 
     t_list      *current_node;
     t_file_info *current_file_info;

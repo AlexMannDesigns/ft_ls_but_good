@@ -109,6 +109,8 @@ void            print_unrecognized_option_error(char *arg);
 void            print_valid_option_not_handled_error(char option);
 void            print_malloc_error_and_exit(void);
 
+/* print_invalid_args.c */
+void            print_invalid_args(char ***invalid_args);
 
 /* FT_LS */
 
