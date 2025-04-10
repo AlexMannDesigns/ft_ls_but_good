@@ -8,8 +8,13 @@ function test_invalid_args () {
         "hello"
         "a b c d e f g"
         "g f e d c b a"
+        "1 c b a M - #"
         "wow these are a lot of words I wonder what order they will be printed"
         "-l foo"
+        "-l -r hello world"
+        "-l foo -x"
+        "-m foo"
+        "-"
     )
 
     # Number of tests
