@@ -22,6 +22,18 @@
 
 /*** Enums ***/
 
+typedef enum e_file_type
+{
+    FFO,
+    CHR,
+    DIR,
+    BLK,
+    REG,
+    LNK,
+    SOK,
+    WHT,
+}   t_file_type;
+
 typedef enum e_display
 {
     COLUMNS,
@@ -32,7 +44,7 @@ typedef enum e_display
 
 typedef enum e_sort
 {
-    LEXICOGRAPHICAL,
+    LEXICOGRAPHICAL = 0,
     TIME,
     SIZE,
 }   t_sort;
@@ -51,7 +63,7 @@ typedef struct s_file_info
 {
     char            *command_line;
     char            *path;
-    struct stat     file_info;
+    struct stat     sys_file_info;
 }                   t_file_info;
 
 typedef struct s_options
