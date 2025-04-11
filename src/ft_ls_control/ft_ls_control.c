@@ -1,19 +1,58 @@
 
 #include "ft_ls.h"
-#include <stdio.h>
 
-/*
-int    ft_ls_recursion_control(t_ls *state, t_dir_info dir)
+// t_list  *construct_file_list(t_file_info *dir_info)
+// {
+//     t_list  *file_list;
+//
+//     //opendir and readdir loop with lstat to populate the linked list
+//
+//     return (file_list);
+// }
+//
+// void    ft_ls_recursion_control(t_options options, t_file_info *dir_info)
+// {
+//     t_list  *file_list;
+//
+//     file_list = construct_file_list(dir_info);
+//     sort_node_list(options, &file_list);
+//     // print_control(state);
+//     // recursion_control(state, dir);
+//     return ;
+// }
+//
+// void    directory_control(t_ls *state)
+// {
+//     t_list      *iter;
+//     
+//     iter = state->directories;
+//     while (iter)
+//     {
+//         ft_ls_recursion_control(state->options, iter->content);
+//         iter = iter->next;
+//     }
+//     return ;
+// }
+
+// This should be a generic function for printing out files, either from
+// the command line or from the contents of a directory 
+// Maybe 'print_control' would be better.
+void    print_files(t_options options, t_list *files)
 {
-    construct_file_list(state, dir);
-    sort_control(state);
-    print_control(state);
-    recursion_control(state, dir);
-    return (TRUE);
+    t_list      *iter;
+    t_file_info *current_file_info;
+
+
+    (void) options;
+    iter = files;
+    while (iter)
+    {
+        current_file_info = (t_file_info *) iter->content;
+        ft_putendl(current_file_info->path);
+        iter = iter->next;
+    }
+    return ;
 }
-*/
-
-
 
 /*
     - validate paths in argv, adding files to one array, dirs to another and invalid paths to another
@@ -35,34 +74,12 @@ void ft_ls_control(t_ls *state, char **argv)
 {
     filename_args_control(state, argv);
     print_invalid_args(&(state->invalid_args));
-    // sort lists here
-    if (state->regular_files)
-        sort_node_list(state->options, &(state->regular_files));
-    if (state->directories)
-        sort_node_list(state->options, &(state->directories));
-    
-    t_list      *current_node;
-    t_file_info *current_file_info;
-
-
-    current_node = state->regular_files;
-    while (current_node)
-    {
-        current_file_info = (t_file_info *) current_node->content;
-        ft_putendl(current_file_info->path);
-        current_node = current_node->next;
-        //ft_ls_recursion_control(&state, dir_arr[i]);
-    }
-
-    current_node = state->directories;
-    while (current_node)
-    {
-        current_file_info = (t_file_info *) current_node->content;
-        ft_putendl(current_file_info->path);
-        current_node = current_node->next;
-        //ft_ls_recursion_control(&state, dir_arr[i]);
-    }
+    sort_node_list(state->options, &(state->regular_files));
+    sort_node_list(state->options, &(state->directories));
+    print_files(state->options, state->regular_files);
+    //directory_control(state);
     cleanup_lists(state);
+    return ;
     // printf("%p %p %p\n", state->directories, state->regular_files, state->invalid_args);
 }
 

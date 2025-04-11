@@ -104,6 +104,8 @@ void    sort_node_list(t_options options, t_list **list)
     t_list  *sorted_tail;
     t_list  *min;
     
+    if (!list || !*list)
+        return ;
     sorted_head = NULL;
     sorted_tail = NULL;
     min = NULL;
