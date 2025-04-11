@@ -1,6 +1,6 @@
 
 #include "ft_ls.h"
-#include "libft.h"
+#include <stdio.h>
 
 /*
 int    ft_ls_recursion_control(t_ls *state, t_dir_info dir)
@@ -12,6 +12,89 @@ int    ft_ls_recursion_control(t_ls *state, t_dir_info dir)
     return (TRUE);
 }
 */
+
+void    print_node_list(t_list *list)
+{
+    t_file_info *current;
+
+    ft_putstr("[ ");
+    while (list)
+    {
+        current = list->content;
+        ft_putstr(current->path);
+        ft_putstr(", ");
+        list = list->next;
+    }
+    ft_putendl("]");
+    return ;
+}
+
+
+
+unsigned int    check_swap_is_needed(t_options options, t_file_info *a, t_file_info *b)
+{
+    if (options.sort == LEXICOGRAPHICAL)
+    {
+        if (check_misc_option_bit(options.misc, REVERSED))
+            return (ft_strcmp(a->path, b->path) < 0);
+        else
+            return (ft_strcmp(a->path, b->path) > 0);
+    }
+    return (FALSE);
+}
+
+void    swap_nodes(unsigned int *swapped, t_list *previous, t_list *current, t_list *next)
+{
+    t_list  *temp;
+
+    *swapped = TRUE;
+    temp = next->next;
+    previous->next = next;
+    next->next = current;
+    current->next = temp;
+    return ;
+}
+
+/*
+ * A simple bubble sort is used. The intention is to minimize code repetition
+ * as much as possible, so we use the same list type and sorting process
+ * across the program.
+ *
+ * temp = b
+ *
+ *  d   c   b   a
+ *
+ */
+void    sort_node_list(t_options options, t_list *list)
+{
+    t_list          *head;
+    t_list          *current;
+    t_list          *next;
+    t_list          *previous;
+    unsigned int    swapped;
+
+    swapped = FALSE;
+    head = list;
+    previous = list;
+    while (list->next)
+    {
+        current = list;
+        next = list->next;
+        print_node_list(head);
+        printf("%p %p\n", current, next);
+        if (check_swap_is_needed(options, current->content, next->content))
+        {
+            swap_nodes(&swapped, previous, current, next);
+        }
+        previous = current;
+        list = list->next;
+    }
+    list = head;
+    if (swapped)
+        sort_node_list(options, list);
+    return ;
+}
+
 
 /*
     - validate paths in argv, adding files to one array, dirs to another and invalid paths to another
@@ -28,21 +111,16 @@ int    ft_ls_recursion_control(t_ls *state, t_dir_info dir)
             - with the -R option, if no file is specified, it refers to current dir as '.' i.e. './libft:' etc)
     - array index variables should be size_t, let's keep it consistent
     
-    // consider the following set-up for this function:
-    // allocate_filename_lists();
-    // validate_filename_args();
-    // sort_filename_lists();
-    // print_invalid_filenames();
-    // print_files();
-    // directory_control();
-    //
-    // and then move the below loop to directory_control()
 */
 void ft_ls_control(t_ls *state, char **argv)
 {
     filename_args_control(state, argv);
     print_invalid_args(&(state->invalid_args));
     // sort lists here
+    // if (state->regular_files)
+    //     sort_node_list(state->options, state->regular_files);
+    // if (state->directories)
+    //     sort_node_list(state->options, state->directories);
     
     t_list      *current_node;
     t_file_info *current_file_info;

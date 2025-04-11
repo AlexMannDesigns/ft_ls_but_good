@@ -1,6 +1,5 @@
 
 #include "ft_ls.h"
-#include "libft.h"
 
 void print_valid_option_not_handled_error(char option)
 {

@@ -1,6 +1,5 @@
 
 #include "ft_ls.h"
-#include "libft.h"
 
 static int  arg_is_options(char *arg)
 {

@@ -1,5 +1,4 @@
 #include "ft_ls.h"
-#include "libft.h"
 
 unsigned int    check_testing(int argc, char **argv)
 {

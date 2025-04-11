@@ -1,6 +1,5 @@
 
 #include "ft_ls.h"
-#include "libft.h"
 
 static void swap_positions(char **a, char **b)
 {
