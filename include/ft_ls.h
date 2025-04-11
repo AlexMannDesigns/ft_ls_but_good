@@ -141,6 +141,8 @@ unsigned int    get_file_type(mode_t st_mode);
 void            add_node_to_list(t_list **list, char *filename, struct stat sys_file_info);
 void            cleanup_lists(t_ls *state);
 
+/* sort_node_list.c */
+void            sort_node_list(t_options options, t_list **list);
 
 /* PRINT */
 
