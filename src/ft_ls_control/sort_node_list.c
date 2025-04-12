@@ -63,17 +63,13 @@ static void append_to_sorted(t_list **sorted_head, t_list **sorted_tail, t_list 
 // this should probably be moved to another file.
 unsigned int    compare_values(t_options options, t_file_info *a, t_file_info *b)
 {
-    // if (options.sort == LEXICOGRAPHICAL)
-    // {
-    //     if (check_misc_option_bit(options.misc, REVERSED))
-    //         return (ft_strcmp(a->path, b->path) < 0);
-    //     else
-    //         return (ft_strcmp(a->path, b->path) > 0);
-    // }
+    int cmp;
+
     (void) options;
-    if (ft_strcmp(a->path, b->path) > 0)
-        return (TRUE);
-    return (FALSE);
+    cmp = ft_strcmp(a->path, b->path);
+    if (check_misc_option_bit(options.misc, REVERSED))
+        return (cmp < 0);
+    return (cmp > 0);
 }
 
 static t_list   *find_min(t_options options, t_list **list)
