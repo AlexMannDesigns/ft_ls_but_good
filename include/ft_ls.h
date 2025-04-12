@@ -24,14 +24,14 @@
 
 typedef enum e_file_type
 {
-    FFO,
-    CHR,
-    DIR,
-    BLK,
-    REG,
-    LNK,
-    SOK,
-    WHT,
+    FIFO,
+    CHAR,
+    DIRECTORY,
+    BLOCK,
+    REGULAR,
+    LINK,
+    SOCKET,
+    WHITEOUT,
 }   t_file_type;
 
 typedef enum e_display
@@ -139,6 +139,7 @@ unsigned int    get_file_type(mode_t st_mode);
 
 /* list_utils.c */
 void            add_node_to_list(t_list **list, char *filename, struct stat sys_file_info);
+void            free_node_list(t_list **list);
 void            cleanup_lists(t_ls *state);
 
 /* sort_node_list.c */

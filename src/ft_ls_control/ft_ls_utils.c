@@ -7,21 +7,21 @@ unsigned int    get_file_type(mode_t st_mode)
 
     type = st_mode & S_IFMT;
     if (type == S_IFIFO)
-        return FFO;
+        return FIFO;
     if (type == S_IFCHR)
-        return CHR;
+        return CHAR;
     if (type == S_IFDIR)
-        return DIR;
+        return DIRECTORY;
     if (type == S_IFBLK)
-        return BLK;
+        return BLOCK;
     if (type == S_IFREG)
-        return REG;
+        return REGULAR;
     if (type == S_IFLNK)
-        return LNK;
+        return LINK;
     if (type == S_IFSOCK)
-        return SOK;
+        return SOCKET;
     if (type == S_IFWHT)
-        return WHT;
+        return WHITEOUT;
 
     // unreachable code
     ft_putendl_fd("Error: could not find matching file-type, exiting...", STDERR_FILENO);

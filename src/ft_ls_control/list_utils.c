@@ -34,11 +34,17 @@ static void    free_file_info(void *file_info_content, size_t n)
     return ;
 }
 
+void    free_node_list(t_list **list)
+{
+    ft_lstdel(list, free_file_info);
+    return ;
+}
+
 void    cleanup_lists(t_ls *state)
 {
     if (state->directories)
-        ft_lstdel(&(state->directories), free_file_info);
+        free_node_list(&(state->directories));
     if (state->regular_files)
-        ft_lstdel(&(state->regular_files), free_file_info);
+        free_node_list(&(state->regular_files));
     return ;
 }

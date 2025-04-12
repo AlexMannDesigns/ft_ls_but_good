@@ -3,3 +3,4 @@ compile_commands.json
 obj/
 .cache/
 *.log
+no_permission_soz/

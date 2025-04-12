@@ -44,7 +44,7 @@ static void    add_invalid_arg(t_ls *state, char **argv, char *filename)
 
 static void    add_to_file_lists(t_ls *state, char *filename, struct stat sys_file_info)
 {
-    if (get_file_type(sys_file_info.st_mode) == DIR)
+    if (get_file_type(sys_file_info.st_mode) == DIRECTORY)
     {
         add_node_to_list(&(state->directories), filename, sys_file_info);
         return ;
@@ -74,6 +74,10 @@ void    filename_args_control(t_ls *state, char **argv)
     while (argv[state->argv_index])
     {
         filename = argv[state->argv_index];
+        // TODO check permissions of path
+        // Different error message is printed in event of no permissions for file
+        // Sorting appears to be the same
+        // directory permissions errors are handled downstream
         if (lstat(filename, &sys_file_info) != 0)
             add_invalid_arg(state, argv, filename);
         else 
