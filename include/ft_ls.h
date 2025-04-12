@@ -128,6 +128,9 @@ void            print_invalid_args(char ***invalid_args);
 
 /* FT_LS_CONTROL */
 
+/* construct_file_list.c */
+t_list          *construct_file_list(t_file_info *dir_info);
+
 /* filename_args_control.c */
 void            filename_args_control(t_ls *state, char **argv);
 
@@ -149,6 +152,9 @@ void            sort_node_list(t_options options, t_list **list);
 void            sort_filename_args(char **args);
 
 /* PRINT */
+
+/* print_control.c */
+void            print_control(t_options options, t_list *files);
 
 /* print_options_state.c */
 void            print_options_state_and_exit(t_ls state);
