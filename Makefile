@@ -14,9 +14,9 @@ SRC_DIR = ./src
 
 SRC_FILES = main.c options/options_control.c options/set_options_control.c options/options_utils.c \
 		options/handle_word_options.c options/handle_single_char_option.c error/print_ls_error.c \
-		error/print_custom_error.c error/print_invalid_args.c print/print_options_state.c test/test_utils.c \
+		error/print_custom_error.c print/print_options_state.c test/test_utils.c \
 		ft_ls_control/ft_ls_control.c ft_ls_control/ft_ls_utils.c ft_ls_control/list_utils.c \
-		ft_ls_control/filename_args_control.c ft_ls_control/sort_node_list.c
+		ft_ls_control/filename_args_control.c ft_ls_control/sort_node_list.c ft_ls_control/sort_filename_args.c
 
 OBJ_DIR = ./obj
 OBJS := $(patsubst %, $(OBJ_DIR)/%, $(SRC_FILES:.c=.o))

@@ -5,6 +5,17 @@
 // This should be a generic function for printing out files, either from
 // the command line or from the contents of a directory 
 // Maybe 'print_control' would be better.
+// 
+// Line breaks:
+// each directory or the file args have a line break printed after them, except the last
+// The best way to handle this may be to print a line break every time this function is called
+// before the files (and title) are printed, except the first time it's called. e.g. put a var
+// in the state struct.
+//
+// Titles (e.g. "libft:\n" being printed before the contents of libft):
+// If there is one filename arg then no title is printed
+// If there are multiple filename args (even if invalid) no title is printed
+// This can probably also be handled with a var in the state struct.
 void    print_files(t_options options, t_list *files)
 {
     t_list      *iter;
@@ -18,14 +29,6 @@ void    print_files(t_options options, t_list *files)
         ft_putendl(current_file_info->path);
         iter = iter->next;
     }
-    return ;
-}
-
-void    permission_denied_error(char *path)
-{
-    ft_putstr_fd("ft_ls: ", STDERR_FILENO);
-    ft_putstr_fd(path, STDERR_FILENO);
-    ft_putendl_fd(": Permission denied", STDERR_FILENO);
     return ;
 }
 
@@ -67,12 +70,10 @@ t_list  *construct_file_list(t_file_info *dir_info)
     DIR             *directory_stream; 
     struct dirent   *directory_position;
 
-    //opendir and readdir loop with lstat to populate the linked list
     directory_stream = opendir(dir_info->path);
     if (directory_stream == NULL)
     {
-        // is there a better way of determining permissions than using opendir?
-        permission_denied_error(dir_info->path);
+        print_filename_error(dir_info->path);
         return (NULL);
     }
     file_list = NULL;
@@ -99,43 +100,24 @@ void    ft_ls_recursion_control(t_options options, t_file_info *dir_info)
     return ;
 }
 
-void    directory_control(t_ls *state)
+/*
+    NB:
+    - array index variables should be size_t, let's keep it consistent
+*/
+void ft_ls_control(t_ls *state, char **argv)
 {
     t_list      *iter;
     
+    filename_args_control(state, argv);
+    sort_node_list(state->options, &(state->regular_files));
+    sort_node_list(state->options, &(state->directories));
+    print_files(state->options, state->regular_files);
     iter = state->directories;
     while (iter)
     {
         ft_ls_recursion_control(state->options, iter->content);
         iter = iter->next;
     }
-    return ;
-}
-
-/*
-    - validate paths in argv, adding files to one array, dirs to another and invalid paths to another
-    - sort the arrays based on sort option
-    - print errors for invalid paths (NB no linebreaks after each, including the last)
-    - print names of normal files based on display option
-    - loop through dirs in ft_ls_control()
-    
-    NB:
-    - only print name of dir before contents (e.g. libft: ) if more than one filename is passed as arg (valid or not)
-        - total_num_filename_args or similar should be set...? We need some way of deciding whether to print it 
-        - furthermore, the 'title' printed of each dir appears to just be the path that was passed
-            - (e.g. '~' expands to absolute path to HOME, "ls ../../foo bar" foo would not be changed to an absolute path)
-            - with the -R option, if no file is specified, it refers to current dir as '.' i.e. './libft:' etc)
-    - array index variables should be size_t, let's keep it consistent
-    
-*/
-void ft_ls_control(t_ls *state, char **argv)
-{
-    filename_args_control(state, argv);
-    print_invalid_args(&(state->invalid_args));
-    sort_node_list(state->options, &(state->regular_files));
-    sort_node_list(state->options, &(state->directories));
-    print_files(state->options, state->regular_files);
-    directory_control(state);
     cleanup_lists(state);
     return ;
     // printf("%p %p %p\n", state->directories, state->regular_files, state->invalid_args);

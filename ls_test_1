@@ -1,0 +1,39 @@
+ls: a: No such file or directory
+ls: b: No such file or directory
+ls: c: No such file or directory
+Makefile
+libft/author
+
+/Users/alex:
+Applications
+Desktop
+Documents
+Downloads
+Library
+Movies
+Music
+Pictures
+Postman
+Postman Agent
+Public
+bin
+wauth_cli
+wolt-certificates
+workspace
+
+libft:
+Makefile
+author
+get_next_line
+include
+libft.a
+obj
+srcs
+
+src:
+error
+ft_ls_control
+main.c
+options
+print
+test

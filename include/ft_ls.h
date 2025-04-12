@@ -80,7 +80,6 @@ typedef struct s_ls
     unsigned int    testing;
     t_list          *directories;
     t_list          *regular_files;
-    char            **invalid_args;
 }                   t_ls;
 
 
@@ -116,6 +115,7 @@ int             set_options_control(t_ls *state, char *arg);
 /* print_ls_error.c */
 void            print_options_error(char options);
 void            print_unrecognized_option_error(char *arg);
+void            print_filename_error(char *filename);
 
 /* print_custom_error.c */
 void            print_valid_option_not_handled_error(char option);
@@ -144,6 +144,9 @@ void            cleanup_lists(t_ls *state);
 
 /* sort_node_list.c */
 void            sort_node_list(t_options options, t_list **list);
+
+/* sort_filename_args.c */
+void            sort_filename_args(char **args);
 
 /* PRINT */
 

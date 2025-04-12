@@ -1,5 +1,6 @@
 
 #include "ft_ls.h"
+#include <stdio.h>
 
 void print_options_error(char option)
 {
@@ -16,5 +17,12 @@ void print_unrecognized_option_error(char *arg)
     ft_putstr_fd(arg, STDERR_FILENO);
     ft_putendl_fd("'", STDERR_FILENO);
     ft_putendl_fd(USAGE, STDERR_FILENO);
+    return ;
+}
+
+void    print_filename_error(char *filename)
+{
+    ft_putstr_fd("ft_ls: ", STDERR_FILENO);
+    perror(filename);
     return ;
 }
