@@ -18,17 +18,17 @@ static char    *build_path(char *path, char *d_name)
     return (full_path);
 }
 
-static void    read_and_add_file(t_list **file_list, char *path, char *d_name)
+static void    read_and_add_file(t_list **file_list, char *dir_path, char *filename)
 {
     struct stat sys_file_info;
     char        *full_path;
 
-    full_path = build_path(path, d_name);
+    full_path = build_path(dir_path, filename);
     if (!full_path)
         print_malloc_error_and_exit();
     if (lstat(full_path, &sys_file_info) != 0)
-        print_stat_error_and_exit(d_name); 
-    add_node_to_list(file_list, d_name, sys_file_info);
+        print_stat_error_and_exit(filename); 
+    add_node_to_list(file_list, filename, sys_file_info);
     free(full_path);
     return ;
 }

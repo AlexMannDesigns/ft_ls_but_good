@@ -20,11 +20,10 @@ static void    no_filename_args(t_ls *state)
 static char **copy_and_sort_remaining_argv(t_ls *state, char **argv)
 {
     char    **filename_args;
-    size_t  remaining_argv_len;
     size_t  i;
     
-    remaining_argv_len = ft_array_len(argv + state->argv_index);
-    filename_args = (char **) ft_memalloc(sizeof(char *) * (remaining_argv_len + 1));
+    state->remaining_argv_len = ft_array_len(argv + state->argv_index);
+    filename_args = (char **) ft_memalloc(sizeof(char *) * (state->remaining_argv_len + 1));
     if (!filename_args)
         print_malloc_error_and_exit();
     i = 0;
