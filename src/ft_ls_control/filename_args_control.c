@@ -79,5 +79,6 @@ void    filename_args_control(t_ls *state, char **argv)
             add_to_file_lists(state, filename, sys_file_info);
         i++;
     }
+    ft_free_char_array(&sorted_filename_args);
     return ;
 }

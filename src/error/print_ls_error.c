@@ -20,9 +20,15 @@ void print_unrecognized_option_error(char *arg)
     return ;
 }
 
+/*
+ * Some edge case handling needed for empty strings ("") in the commandline args
+ * For some reason perror will not print a colon in this scenario.
+*/
 void    print_filename_error(char *filename)
 {
     ft_putstr_fd("ft_ls: ", STDERR_FILENO);
+    if (ft_strequ(filename, ""))
+        ft_putstr_fd(": ", STDERR_FILENO);
     perror(filename);
     return ;
 }

@@ -6,6 +6,7 @@ function test_ls () {
     # Test cases array
     TEST_CASES=(
         ""
+        "''"
         "${HOME}"
         "libft"
         "${HOME} libft src"
