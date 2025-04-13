@@ -3,9 +3,9 @@
 
 void    print_newline_and_title(t_ls *state, char *directory_name)
 {
-    if (state->print.print_newline)
+    if (state->print_newline)
         ft_putstr("\n");
-    if (state->print.printing_directory && state->remaining_argv_len > 1)
+    if (state->remaining_argv_len > 1)
     {
         ft_putstr(directory_name);
         ft_putendl(":");
@@ -39,7 +39,6 @@ void ft_ls_control(t_ls *state, char **argv)
     sort_node_list(state->options, &(state->regular_files));
     sort_node_list(state->options, &(state->directories));
     print_control(state, state->regular_files);
-    state->print.printing_directory = TRUE;
     iter = state->directories;
     while (iter)
     {

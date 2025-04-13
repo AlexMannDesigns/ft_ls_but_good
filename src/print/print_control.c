@@ -24,6 +24,6 @@ void    print_control(t_ls *state, t_list *files)
             ft_putendl(current->path);
         iter = iter->next;
     }
-    state->print.print_newline = TRUE;
+    state->print_newline = TRUE;
     return ;
 }

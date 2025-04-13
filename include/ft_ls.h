@@ -59,14 +59,6 @@ typedef enum e_misc_bits
 
 /*** Structs ***/
 
-typedef struct s_print
-{
-    unsigned int    print_newline;
-    unsigned int    print_title;
-    unsigned int    printing_directory;
-    char            *directory_name;
-}   t_print;
-
 typedef struct s_file_info
 {
     char            *command_line;
@@ -84,7 +76,7 @@ typedef struct s_options
 typedef struct s_ls
 {
     t_options       options;
-    t_print         print;
+    unsigned int    print_newline;
     unsigned int    argv_index;
     unsigned int    remaining_argv_len;
     unsigned int    testing;
