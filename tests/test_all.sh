@@ -8,3 +8,5 @@ echo ""
 "$TEST_DIR"/test_options_handling.sh
 echo ""
 "$TEST_DIR"/test_invalid_arg.sh
+echo ""
+"$TEST_DIR"/test_ls.sh
