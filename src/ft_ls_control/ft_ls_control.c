@@ -1,23 +1,10 @@
 #include "ft_ls.h"
 
-// move to print directory
-void    print_newline_and_title(t_ls *state, char *directory_name)
-{
-    if (state->print_newline)
-        ft_putstr("\n");
-    if (state->remaining_argv_len > 1)
-    {
-        ft_putstr(directory_name);
-        ft_putendl(":");
-    }
-    return ;
-}
-
 static void    ft_ls_recursion_control(t_ls *state, t_file_info *dir_info)
 {
     t_list  *file_list;
 
-    print_newline_and_title(state, dir_info->path);
+    print_linebreak_and_title(state, dir_info->path);
     file_list = construct_file_list(dir_info);
     sort_node_list(state->options, &file_list);
     print_control(state, file_list);

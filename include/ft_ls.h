@@ -156,6 +156,8 @@ void            print_control(t_ls *state, t_list *files);
 /* print_options_state.c */
 void            print_options_state_and_exit(t_ls state);
 
+/* print_linebreak_and_title.c */
+void            print_linebreak_and_title(t_ls *state, char *directory_name);
 
 /* SORT */
 
