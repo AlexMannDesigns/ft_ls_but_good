@@ -147,11 +147,6 @@ void            add_node_to_list(t_list **list, char *filename, struct stat sys_
 void            free_node_list(t_list **list);
 void            cleanup_lists(t_ls *state);
 
-/* sort_node_list.c */
-void            sort_node_list(t_options options, t_list **list);
-
-/* sort_filename_args.c */
-void            sort_filename_args(char **args);
 
 /* PRINT */
 
@@ -160,6 +155,18 @@ void            print_control(t_ls *state, t_list *files);
 
 /* print_options_state.c */
 void            print_options_state_and_exit(t_ls state);
+
+
+/* SORT */
+
+/* compare_values.c */
+unsigned int    compare_values(t_options options, t_file_info *a, t_file_info *b);
+
+/* sort_node_list.c */
+void            sort_node_list(t_options options, t_list **list);
+
+/* sort_filename_args.c */
+void            sort_filename_args(char **args);
 
 
 /* TEST */

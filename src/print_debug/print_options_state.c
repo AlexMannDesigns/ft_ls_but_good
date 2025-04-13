@@ -26,6 +26,9 @@ static char *get_sort(t_ls state)
     return ("error");
 }
 
+/*
+ * This is function prints the options state and is for testing purposes only
+ */
 void    print_options_state_and_exit(t_ls state)
 {
     printf(
