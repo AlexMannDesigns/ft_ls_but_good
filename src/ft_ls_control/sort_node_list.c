@@ -1,6 +1,7 @@
 #include "ft_ls.h"
 
 // this should be moved to another file
+// just for debugging, not part of the program
 void    print_node_list(t_list *list)
 {
     t_file_info *current;
@@ -56,6 +57,8 @@ static void append_to_sorted(t_list **sorted_head, t_list **sorted_tail, t_list 
 }
 
 // this should probably be moved to another file.
+// we should make a sort directory, and put sorting related stuff in there.
+// i.e. this file, the args sorting file, and functions for comparing values like this one
 unsigned int    compare_values(t_options options, t_file_info *a, t_file_info *b)
 {
     int cmp;

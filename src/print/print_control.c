@@ -1,5 +1,7 @@
 #include "ft_ls.h"
 
+// note that dot files are still printed when passed as arg
+// e.g. ls .gitignore -> prints .gitignore despite the lack of -a option
 int file_should_be_printed(t_options options, char *path)
 {
     if (check_misc_option_bit(options.misc, ALL))

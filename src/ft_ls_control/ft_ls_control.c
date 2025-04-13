@@ -1,6 +1,6 @@
 #include "ft_ls.h"
 
-
+// move to print directory
 void    print_newline_and_title(t_ls *state, char *directory_name)
 {
     if (state->print_newline)
@@ -13,7 +13,7 @@ void    print_newline_and_title(t_ls *state, char *directory_name)
     return ;
 }
 
-void    ft_ls_recursion_control(t_ls *state, t_file_info *dir_info)
+static void    ft_ls_recursion_control(t_ls *state, t_file_info *dir_info)
 {
     t_list  *file_list;
 
