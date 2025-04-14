@@ -1,4 +1,3 @@
-
 #include "ft_ls.h"
 
 static int  arg_is_options(char *arg)

@@ -1,5 +1,4 @@
 #include "ft_ls.h"
-#include <stdlib.h>
 
 static int set_display(t_options *options, char option)
 {
@@ -30,10 +29,9 @@ static int set_misc(t_options *options, char option)
     if (option == 'a')
         return (set_misc_option_bit(&(options->misc), ALL));
     
-    // This should be unreachable code
+    // Unreachable code
     print_valid_option_not_handled_error(option);
     exit(EXIT_FAILURE);
-    // return (FALSE);
 }
 
 static const t_option_handler *get_option_handlers(void)

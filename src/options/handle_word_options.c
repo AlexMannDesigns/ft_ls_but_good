@@ -1,5 +1,4 @@
 #include "ft_ls.h"
-#include "libft.h"
 
 int handle_word_options(t_ls *state, char *arg)
 {
