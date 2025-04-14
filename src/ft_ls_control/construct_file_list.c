@@ -27,7 +27,7 @@ static void    read_and_add_file(t_list **file_list, char *dir_path, char *filen
     if (!full_path)
         print_malloc_error_and_exit();
     if (lstat(full_path, &sys_file_info) != 0)
-        print_stat_error_and_exit(filename); 
+        print_stat_error_and_exit(filename);
     add_node_to_list(file_list, filename, sys_file_info);
     free(full_path);
     return ;
@@ -40,7 +40,7 @@ static void    read_and_add_file(t_list **file_list, char *dir_path, char *filen
 t_list  *construct_file_list(t_file_info *dir_info)
 {
     t_list          *file_list;
-    DIR             *directory_stream; 
+    DIR             *directory_stream;
     struct dirent   *directory_position;
 
     directory_stream = opendir(dir_info->path);
@@ -52,7 +52,7 @@ t_list  *construct_file_list(t_file_info *dir_info)
     file_list = NULL;
     directory_position = readdir(directory_stream);
     while (directory_position != NULL)
-    { 
+    {
         read_and_add_file(&file_list, dir_info->path, directory_position->d_name);
         directory_position = readdir(directory_stream);
     }

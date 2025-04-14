@@ -1,7 +1,7 @@
 #include "ft_ls.h"
 
 /*
- * Here, we need to find our min in the original list and drop it 
+ * Here, we need to find our min in the original list and drop it
  * by making the next pointer from the node beforehand to bypass it.
  * We do not want to 'free' or 'delete' anything here. The process in
  * this sort is just to move pointers around until everything is
@@ -76,7 +76,7 @@ void    sort_node_list(t_options options, t_list **list)
     t_list  *sorted_tail;
     t_list  *min;
     t_list  *previous_to_min;
-    
+
     if (!list || !*list)
         return ;
     sorted_head = NULL;

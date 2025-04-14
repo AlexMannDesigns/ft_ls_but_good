@@ -21,7 +21,7 @@ static void    ft_ls_recursion_control(t_ls *state, t_file_info *dir_info)
 void ft_ls_control(t_ls *state, char **argv)
 {
     t_list      *iter;
-    
+
     filename_args_control(state, argv);
     sort_node_list(state->options, &(state->regular_files));
     sort_node_list(state->options, &(state->directories));

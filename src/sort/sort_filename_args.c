@@ -1,4 +1,3 @@
-
 #include "ft_ls.h"
 
 static void swap_positions(char **a, char **b)

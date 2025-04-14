@@ -28,7 +28,7 @@ static int set_misc(t_options *options, char option)
         return (set_misc_option_bit(&(options->misc), REVERSED));
     if (option == 'a')
         return (set_misc_option_bit(&(options->misc), ALL));
-    
+
     // Unreachable code
     print_valid_option_not_handled_error(option);
     exit(EXIT_FAILURE);
@@ -49,7 +49,7 @@ void    handle_single_char_option(t_options *options, char option)
 {
     const t_option_handler  *handlers;
     int                     i;
-    
+
     handlers = get_option_handlers();
     i = 0;
     while (handlers[i])

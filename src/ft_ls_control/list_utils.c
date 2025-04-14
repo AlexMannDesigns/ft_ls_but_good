@@ -1,7 +1,6 @@
-
 #include "ft_ls.h"
 
-void add_node_to_list(t_list **list, char *filename, struct stat sys_file_info) 
+void add_node_to_list(t_list **list, char *filename, struct stat sys_file_info)
 {
     t_file_info file_info;
     t_list      *new_node;

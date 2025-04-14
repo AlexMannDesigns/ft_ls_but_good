@@ -10,7 +10,7 @@ static void    no_filename_args(t_ls *state)
 
     if (lstat("./", &sys_file_info) != 0)
     {
-        print_filename_error("./"); 
+        print_filename_error("./");
         return ;
     }
     add_node_to_list(&(state->directories), "./", sys_file_info);
@@ -21,7 +21,7 @@ static char **copy_and_sort_remaining_argv(t_ls *state, char **argv)
 {
     char    **filename_args;
     size_t  i;
-    
+
     state->remaining_argv_len = ft_array_len(argv + state->argv_index);
     filename_args = (char **) ft_memalloc(sizeof(char *) * (state->remaining_argv_len + 1));
     if (!filename_args)
@@ -47,7 +47,7 @@ static void    add_to_file_lists(t_ls *state, char *filename, struct stat sys_fi
     }
     add_node_to_list(&(state->regular_files), filename, sys_file_info);
     return ;
-} 
+}
 
 /*
  * This function cycles through the remaining argv which are interpreted
@@ -75,7 +75,7 @@ void    filename_args_control(t_ls *state, char **argv)
         filename = sorted_filename_args[i];
         if (lstat(filename, &sys_file_info) != 0)
             print_filename_error(filename);
-        else 
+        else
             add_to_file_lists(state, filename, sys_file_info);
         i++;
     }

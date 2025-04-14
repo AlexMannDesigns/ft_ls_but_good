@@ -6,7 +6,7 @@
  * is more than one filename arg in the argv. We print linebreaks before
  * the title of the next dir is printed, except in the case of the first
  * directory (or indeed, any non-directory args). The print_newline var
- * in the state is set to false when the program starts then to true 
+ * in the state is set to false when the program starts then to true
  * at the end of print_control().
 */
 void    print_linebreak_and_title(t_ls *state, char *directory_name)
