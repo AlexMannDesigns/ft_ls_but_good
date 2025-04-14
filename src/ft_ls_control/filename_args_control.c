@@ -20,10 +20,12 @@ static void    no_filename_args(t_ls *state)
 static char **copy_and_sort_remaining_argv(t_ls *state, char **argv)
 {
     char    **filename_args;
+    size_t  bytes_needed;
     size_t  i;
 
     state->remaining_argv_len = ft_array_len(argv + state->argv_index);
-    filename_args = (char **) ft_memalloc(sizeof(char *) * (state->remaining_argv_len + 1));
+    bytes_needed = sizeof(char *) * (state->remaining_argv_len + 1);
+    filename_args = (char **) ft_memalloc(bytes_needed);
     if (!filename_args)
         print_malloc_error_and_exit();
     i = 0;
@@ -38,14 +40,14 @@ static char **copy_and_sort_remaining_argv(t_ls *state, char **argv)
     return (filename_args);
 }
 
-static void    add_to_file_lists(t_ls *state, char *filename, struct stat sys_file_info)
+static void    add_to_lists(t_ls *state, char *filename, struct stat file_info)
 {
-    if (get_file_type(sys_file_info.st_mode) == DIRECTORY)
+    if (get_file_type(file_info.st_mode) == DIRECTORY)
     {
-        add_node_to_list(&(state->directories), filename, sys_file_info);
+        add_node_to_list(&(state->directories), filename, file_info);
         return ;
     }
-    add_node_to_list(&(state->regular_files), filename, sys_file_info);
+    add_node_to_list(&(state->regular_files), filename, file_info);
     return ;
 }
 
@@ -76,7 +78,7 @@ void    filename_args_control(t_ls *state, char **argv)
         if (lstat(filename, &sys_file_info) != 0)
             print_filename_error(filename);
         else
-            add_to_file_lists(state, filename, sys_file_info);
+            add_to_lists(state, filename, sys_file_info);
         i++;
     }
     ft_free_char_array(&sorted_filename_args);

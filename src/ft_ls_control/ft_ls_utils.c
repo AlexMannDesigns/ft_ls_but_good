@@ -1,4 +1,3 @@
-
 #include "ft_ls.h"
 
 unsigned int    get_file_type(mode_t st_mode)
@@ -24,7 +23,7 @@ unsigned int    get_file_type(mode_t st_mode)
         return WHITEOUT;
 
     // unreachable code
-    ft_putendl_fd("Error: could not find matching file-type, exiting...", STDERR_FILENO);
+    ft_putendl_fd(ERROR_FILETYPE, STDERR_FILENO);
     exit(EXIT_FAILURE);
 }
 

@@ -18,7 +18,7 @@ static char    *build_path(char *path, char *d_name)
     return (full_path);
 }
 
-static void    read_and_add_file(t_list **file_list, char *dir_path, char *filename)
+static void    read_and_add_file(t_list **list, char *dir_path, char *filename)
 {
     struct stat sys_file_info;
     char        *full_path;
@@ -28,7 +28,7 @@ static void    read_and_add_file(t_list **file_list, char *dir_path, char *filen
         print_malloc_error_and_exit();
     if (lstat(full_path, &sys_file_info) != 0)
         print_stat_error_and_exit(filename);
-    add_node_to_list(file_list, filename, sys_file_info);
+    add_node_to_list(list, filename, sys_file_info);
     free(full_path);
     return ;
 }

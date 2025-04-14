@@ -7,7 +7,7 @@
  * this sort is just to move pointers around until everything is
  * correctly ordered.
  */
-static void remove_from_original(t_list **list, t_list *min, t_list *previous_to_min)
+static void remove_from_original(t_list **list, t_list *min, t_list *previous)
 {
     if (!list || !*list || !min)
         return ;
@@ -16,7 +16,7 @@ static void remove_from_original(t_list **list, t_list *min, t_list *previous_to
         *list = (*list)->next;
         return ;
     }
-    previous_to_min->next = min->next;
+    previous->next = min->next;
     return ;
 }
 
@@ -42,7 +42,7 @@ static void append_to_sorted(t_list **sorted_head, t_list **sorted_tail, t_list 
  * min value. This means we don't need to find it again when we remove it from
  * the original list.
  */
-static t_list   *find_min(t_options options, t_list **list, t_list **previous_to_min)
+static t_list   *find_min(t_options options, t_list **list, t_list **previous)
 {
     t_list  *iter;
     t_list  *min;
@@ -56,7 +56,7 @@ static t_list   *find_min(t_options options, t_list **list, t_list **previous_to
         if (!min || compare_values(options, min->content, iter->content))
         {
             min = iter;
-            *previous_to_min = prev;
+            *previous = prev;
         }
         prev = iter;
         iter = iter->next;

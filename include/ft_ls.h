@@ -19,6 +19,7 @@
 # define USAGE "usage: ./ft_ls [-RSalmnrt] [file ...]"
 # define TEST "--TEST"
 
+# define ERROR_FILETYPE "Error: could not find matching file-type, exiting..."
 
 /*** Enums ***/
 
