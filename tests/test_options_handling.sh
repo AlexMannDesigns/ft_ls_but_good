@@ -17,19 +17,19 @@ function options_tester () {
     FT_LS_OUTPUT_FILE=$(mktemp)
     EXPECTED_OUTPUT_FILE=$(mktemp)
     TMP_FILES+=("$FT_LS_OUTPUT_FILE" "$EXPECTED_OUTPUT_FILE")
-    
+
     # run ./ft_ls --TEST + commandline args > temp_file
     ./ft_ls --TEST "${ARGS_ARRAY[@]}" > "$FT_LS_OUTPUT_FILE"
 
     # echo the expected output into another temp file
     echo "$EXPECTED_OUTPUT" > "$EXPECTED_OUTPUT_FILE"
-    
+
     # diff the two temp files, outputting any errors into a test results file
     if diff -u "$EXPECTED_OUTPUT_FILE" "$FT_LS_OUTPUT_FILE" > /dev/null; then
         echo "$TEST_PASS"
     else
         echo "$TEST_FAIL"
-        echo "//----- ./ft_ls" "${ARGS_ARRAY[@]}" "-----//" >> "$ERROR_LOG" 
+        echo "//----- ./ft_ls" "${ARGS_ARRAY[@]}" "-----//" >> "$ERROR_LOG"
         diff -u "$EXPECTED_OUTPUT_FILE" "$FT_LS_OUTPUT_FILE" >> "$ERROR_LOG"
         echo "" >> "$ERROR_LOG"
     fi
@@ -84,7 +84,7 @@ function test_basic_options () {
 # This test covers some more convoluted (but valid) option sequences (e.g. ./ft_ls -lR -ta -r)
 function test_complex_options () {
     echo "//----- COMPLEX OPTIONS TESTS -----//"
-    
+
     # Test cases array
     TEST_CASES=(
         "-la"
@@ -124,7 +124,7 @@ function test_complex_options () {
 # repeating an option should not change anything
 function test_option_repetition () {
     echo "//----- OPTION REPETITION TESTS -----//"
-    
+
     # Test cases array
     TEST_CASES=(
         "-ll"
@@ -164,7 +164,7 @@ function test_option_repetition () {
 # This test handles the double-line (--) edge case
 function test_double_line () {
     echo "//----- DOUBLE LINE (--) TESTS -----//"
-    
+
     # Test cases array
     TEST_CASES=(
         "--"
@@ -196,13 +196,13 @@ function test_double_line () {
 # This test ensures invalid options are handled correctly
 function test_option_errors () {
     echo "//----- OPTION ERROR TESTS -----//"
-    
+
     # Test cases array
     TEST_CASES=(
         "-z"
         "--z"
         "--hello"
-        "-l -m -X"
+        "-l -m -Z"
         "-lartYR"
     )
 
@@ -215,20 +215,20 @@ function test_option_errors () {
 
         # convert args to array
         ARGS_ARRAY=($OPTION_STRING)
-    
+
         # set up temp files
         FT_LS_OUTPUT=$(mktemp)
         LS_OUTPUT=$(mktemp)
         TMP_FILES+=("$FT_LS_OUTPUT" "$LS_OUTPUT")
-        
+
         # run test and save output to temp file (usage not needed and first
         # 3 chars can be sliced off [i.e. 'ft_'] so the error message matches ls)
         ./ft_ls "${ARGS_ARRAY[@]}" > "$FT_LS_OUTPUT" 2>&1
         FT_LS_ERROR_LINE=$(head -n 1 "$FT_LS_OUTPUT")
-        FT_LS_NORMALIZED=${FT_LS_ERROR_LINE:3} 
+        FT_LS_NORMALIZED=${FT_LS_ERROR_LINE:3}
 
-        # run same args through system ls 
-        ls "${ARGS_ARRAY[@]}" > "$LS_OUTPUT" 2>&1 
+        # run same args through system ls
+        ls "${ARGS_ARRAY[@]}" > "$LS_OUTPUT" 2>&1
         LS_ERROR_LINE=$(head -n 1 "$LS_OUTPUT")
 
         # compare normalized errors
@@ -236,7 +236,7 @@ function test_option_errors () {
             echo "$TEST_PASS"
         else
             echo "$TEST_FAIL"
-            echo "//----- ./ft_ls" "${ARGS_ARRAY[@]}" "-----//" >> "$ERROR_LOG" 
+            echo "//----- ./ft_ls" "${ARGS_ARRAY[@]}" "-----//" >> "$ERROR_LOG"
             echo "$LS_ERROR_LINE" >> "$ERROR_LOG"
             echo "$FT_LS_NORMALIZED" >> "$ERROR_LOG"
             echo "" >> "$ERROR_LOG"
@@ -259,7 +259,7 @@ TEST_FAIL="${RED}FAIL${NC} ❌"
 ERROR_LOG="test_option_errors.log"
 > "$ERROR_LOG"
 
-# setup temp files array and cleanup 
+# setup temp files array and cleanup
 TMP_FILES=()
 cleanup() { rm -f "${TMP_FILES[@]}"; }
 trap cleanup EXIT
