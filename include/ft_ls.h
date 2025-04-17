@@ -81,6 +81,7 @@ typedef struct s_ls
     unsigned int    argv_index;
     unsigned int    remaining_argv_len;
     unsigned int    testing;
+    unsigned int    printing_file_args;
     t_list          *directories;
     t_list          *regular_files;
 }                   t_ls;

@@ -25,7 +25,9 @@ void ft_ls_control(t_ls *state, char **argv)
     filename_args_control(state, argv);
     sort_node_list(state->options, &(state->regular_files));
     sort_node_list(state->options, &(state->directories));
+    state->printing_file_args = TRUE;
     print_control(state, state->regular_files);
+    state->printing_file_args = FALSE;
     iter = state->directories;
     while (iter)
     {

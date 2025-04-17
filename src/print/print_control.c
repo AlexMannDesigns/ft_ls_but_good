@@ -13,13 +13,15 @@ int file_should_be_printed(t_options options, char *path)
 }
 
 // The differnt display options should be in a function dispatch table
-void    print_display_dispatch(t_options options, t_list *current)
+void    print_display_dispatch(t_ls *state, t_list *current)
 {
-    t_file_info *content;
+    t_file_info     *content;
+    unsigned int    display;
 
     content = (t_file_info *) current->content;
+    display = state->options.display;
     // print -1 display as a fall-back before other formats are implemented
-    if (options.display == ONE || options.display == LONG || options.display == COLUMNS)
+    if (display == ONE || display == LONG || display == COLUMNS)
     {
         ft_putstr(content->path);
         ft_putchar('\n');
@@ -27,13 +29,17 @@ void    print_display_dispatch(t_options options, t_list *current)
     }
     // the comma display should print new lines if a file name wont fit in the
     // terminal window.
-    if (options.display == COMMA)
+    if (display == COMMA)
     {
         ft_putstr(content->path);
         if (current->next)
             ft_putstr(", ");
         else
+        {
+            if (state->printing_file_args)
+                ft_putchar(',');
             ft_putchar('\n');
+        }
         return ;
     }
     return ;
@@ -50,8 +56,8 @@ void    print_control(t_ls *state, t_list *files)
     while (iter)
     {
         current = (t_file_info *) iter->content;
-        if (file_should_be_printed(state->options, current->path))
-            print_display_dispatch(state->options, iter);
+        if (file_should_be_printed(state->options, current->path) || state->printing_file_args)
+            print_display_dispatch(state, iter);
         iter = iter->next;
 
     }
