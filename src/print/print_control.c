@@ -1,11 +1,11 @@
 #include "ft_ls.h"
 
-// note that dot files are still printed when passed as arg
-// e.g. ls .gitignore -> prints .gitignore despite the lack of -a option
-// maybe add 'printing_filename_args' bool to the state
-int file_should_be_printed(t_options options, char *path)
+int file_should_be_printed(t_ls *state, char *path)
 {
-    if (check_misc_option_bit(options.misc, ALL))
+    unsigned int    print_all;
+
+    print_all = check_misc_option_bit(state->options.misc, ALL);
+    if (print_all || state->printing_file_args)
         return (TRUE);
     if (path[0] == '.')
         return (FALSE);
@@ -28,7 +28,8 @@ void    print_display_dispatch(t_ls *state, t_list *current)
         return ;
     }
     // the comma display should print new lines if a file name wont fit in the
-    // terminal window.
+    // terminal window. If writing to a pipe or file it was about 80 char max
+    // line length.
     if (display == COMMA)
     {
         ft_putstr(content->path);
@@ -56,7 +57,7 @@ void    print_control(t_ls *state, t_list *files)
     while (iter)
     {
         current = (t_file_info *) iter->content;
-        if (file_should_be_printed(state->options, current->path) || state->printing_file_args)
+        if (file_should_be_printed(state, current->path))
             print_display_dispatch(state, iter);
         iter = iter->next;
 
