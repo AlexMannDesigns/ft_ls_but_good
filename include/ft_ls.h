@@ -39,7 +39,7 @@ typedef enum e_file_type
 
 typedef enum e_display
 {
-    COLUMNS,
+    COLUMNS = 0,
     LONG,
     COMMA,
     ONE,
@@ -94,7 +94,7 @@ typedef struct s_ls
 /*** Typedefs ***/
 
 typedef int (*t_option_handler)(t_options *, char);
-
+typedef void (*t_print_format)(t_ls *, t_list *);
 
 /*** Functions ***/
 
@@ -156,6 +156,18 @@ void            cleanup_lists_and_print_buf(t_ls *state);
 
 /* PRINT */
 
+/* print_comma_format.c */
+void            print_comma_format(t_ls *state, t_list *current);
+
+/* print_one_format.c */
+void            print_one_format(t_ls *state, t_list *current);
+
+/* print_columns_format.c */
+void            print_columns_format(t_ls *state, t_list *current);
+
+/* print_long_format.c */
+void            print_long_format(t_ls *state, t_list *current);
+
 /* print_control.c */
 void            print_control(t_ls *state, t_list *files);
 
@@ -166,6 +178,7 @@ void            print_options_state_and_exit(t_ls state);
 void            print_linebreak_and_title(t_ls *state, char *directory_name);
 
 /* print_utils.c */
+int             file_should_be_printed(t_ls *state, char *path);
 void            add_to_buf(t_ls *state, char *str);
 void            flush_buf(t_ls *state);
 

@@ -1,50 +1,25 @@
 #include "ft_ls.h"
 
-int file_should_be_printed(t_ls *state, char *path)
+/*
+ * The ordering of the functions must be in sync with the display enum
+*/
+static const t_print_format *get_print_format_handlers(void)
 {
-    unsigned int    print_all;
-
-    print_all = check_misc_option_bit(state->options.misc, ALL);
-    if (print_all || state->printing_file_args)
-        return (TRUE);
-    if (path[0] == '.')
-        return (FALSE);
-    return (TRUE);
+    static const t_print_format dispatch_table[] = {
+        print_columns_format,
+        print_long_format,
+        print_comma_format,
+        print_one_format,
+    };
+    return (dispatch_table);
 }
 
-// The differnt display options should be in a function dispatch table
-// consider creating a malloc'd buffer we copy into a flush, rather than
-// repeatedly calling write() like this
 void    print_display_dispatch(t_ls *state, t_list *current)
 {
-    t_file_info     *content;
-    unsigned int    display;
+    const t_print_format    *format_handlers;
 
-    content = (t_file_info *) current->content;
-    display = state->options.display;
-    // print -1 display as a fall-back before other formats are implemented
-    if (display == ONE || display == LONG || display == COLUMNS)
-    {
-        add_to_buf(state, content->path);
-        add_to_buf(state, "\n");
-        return ;
-    }
-    // the comma display should print new lines if a file name wont fit in the
-    // terminal window. If writing to a pipe or file it was about 80 char max
-    // line length.
-    if (display == COMMA)
-    {
-        add_to_buf(state, content->path);
-        if (current->next)
-            add_to_buf(state, ", ");
-        else
-        {
-            if (state->printing_file_args)
-                add_to_buf(state, ",");
-            add_to_buf(state, "\n");
-        }
-        return ;
-    }
+    format_handlers = get_print_format_handlers();
+    format_handlers[state->options.display](state, current);
     return ;
 }
 
