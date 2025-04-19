@@ -39,11 +39,13 @@ void    free_node_list(t_list **list)
     return ;
 }
 
-void    cleanup_lists(t_ls *state)
+void    cleanup_lists_and_print_buf(t_ls *state)
 {
     if (state->directories)
         free_node_list(&(state->directories));
     if (state->regular_files)
         free_node_list(&(state->regular_files));
+    if (state->print_buf)
+        free(state->print_buf);
     return ;
 }

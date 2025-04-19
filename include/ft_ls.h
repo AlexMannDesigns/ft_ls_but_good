@@ -15,6 +15,8 @@
 # define TRUE 1
 # define FALSE 0
 
+# define BUF_SIZE 4096
+
 # define OPTIONS "RSalmnrt1"
 # define USAGE "usage: ./ft_ls [-RSalmnrt] [file ...]"
 # define TEST "--TEST"
@@ -84,6 +86,8 @@ typedef struct s_ls
     unsigned int    printing_file_args;
     t_list          *directories;
     t_list          *regular_files;
+    char            *print_buf;
+    size_t          buf_idx;
 }                   t_ls;
 
 
@@ -147,7 +151,7 @@ unsigned int    get_file_type(mode_t st_mode);
 /* list_utils.c */
 void            add_node_to_list(t_list **list, char *filename, struct stat sys_file_info);
 void            free_node_list(t_list **list);
-void            cleanup_lists(t_ls *state);
+void            cleanup_lists_and_print_buf(t_ls *state);
 
 
 /* PRINT */
@@ -160,6 +164,11 @@ void            print_options_state_and_exit(t_ls state);
 
 /* print_linebreak_and_title.c */
 void            print_linebreak_and_title(t_ls *state, char *directory_name);
+
+/* print_utils.c */
+void            add_to_buf(t_ls *state, char *str);
+void            flush_buf(t_ls *state);
+
 
 /* SORT */
 

@@ -6,7 +6,7 @@ CC = gcc
 INCLUDE_DIR = ./include
 
 LIBFT_DIR = ./libft
-LIBFT := $(LIBFT_DIR)/libft.a 
+LIBFT := $(LIBFT_DIR)/libft.a
 LIBFT_INCLUDE_DIR := $(LIBFT_DIR)/include
 GNL_INCLUDE_DIR := $(LIBFT_DIR)/get_next_line
 
@@ -19,9 +19,9 @@ SRC_FILES = main.c \
 		test/test_utils.c \
 		ft_ls_control/ft_ls_control.c ft_ls_control/ft_ls_utils.c ft_ls_control/list_utils.c \
 		ft_ls_control/filename_args_control.c ft_ls_control/construct_file_list.c \
-		print/print_control.c print/print_linebreak_and_title.c \
+		print/print_control.c print/print_linebreak_and_title.c print/print_utils.c \
 		print_debug/print_options_state.c print_debug/print_node_list.c \
-		sort/compare_values.c sort/sort_node_list.c sort/sort_filename_args.c 
+		sort/compare_values.c sort/sort_node_list.c sort/sort_filename_args.c
 
 OBJ_DIR = ./obj
 OBJS := $(patsubst %, $(OBJ_DIR)/%, $(SRC_FILES:.c=.o))
@@ -30,11 +30,11 @@ GCC_FLAGS = -Wall -Wextra -Werror -g
 
 LIBFT_FLAGS := -L"$(LIBFT_DIR)" -lft
 
-INCLUDE_FLAGS := -I$(INCLUDE_DIR) -I$(LIBFT_INCLUDE_DIR) -I$(GNL_INCLUDE_DIR) 
+INCLUDE_FLAGS := -I$(INCLUDE_DIR) -I$(LIBFT_INCLUDE_DIR) -I$(GNL_INCLUDE_DIR)
 
 #################################################################
 
-	
+
 ##### FT_LS RECIPES #####
 
 all: $(NAME)
@@ -69,7 +69,7 @@ libft_fclean: libft_clean
 
 ##### RECIPES FOR ALL #####
 
-fclean_all: fclean libft_fclean 
+fclean_all: fclean libft_fclean
 
 .PHONY: all clean fclean re libft
 

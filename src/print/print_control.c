@@ -13,6 +13,8 @@ int file_should_be_printed(t_ls *state, char *path)
 }
 
 // The differnt display options should be in a function dispatch table
+// consider creating a malloc'd buffer we copy into a flush, rather than
+// repeatedly calling write() like this
 void    print_display_dispatch(t_ls *state, t_list *current)
 {
     t_file_info     *content;
@@ -23,8 +25,8 @@ void    print_display_dispatch(t_ls *state, t_list *current)
     // print -1 display as a fall-back before other formats are implemented
     if (display == ONE || display == LONG || display == COLUMNS)
     {
-        ft_putstr(content->path);
-        ft_putchar('\n');
+        add_to_buf(state, content->path);
+        add_to_buf(state, "\n");
         return ;
     }
     // the comma display should print new lines if a file name wont fit in the
@@ -32,14 +34,14 @@ void    print_display_dispatch(t_ls *state, t_list *current)
     // line length.
     if (display == COMMA)
     {
-        ft_putstr(content->path);
+        add_to_buf(state, content->path);
         if (current->next)
-            ft_putstr(", ");
+            add_to_buf(state, ", ");
         else
         {
             if (state->printing_file_args)
-                ft_putchar(',');
-            ft_putchar('\n');
+                add_to_buf(state, ",");
+            add_to_buf(state, "\n");
         }
         return ;
     }

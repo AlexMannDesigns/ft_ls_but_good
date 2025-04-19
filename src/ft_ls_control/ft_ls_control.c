@@ -14,6 +14,14 @@ static void    ft_ls_recursion_control(t_ls *state, t_file_info *dir_info)
     return ;
 }
 
+void    print_filename_args(t_ls *state)
+{
+    state->printing_file_args = TRUE;
+    print_control(state, state->regular_files);
+    state->printing_file_args = FALSE;
+    return ;
+}
+
 /*
     NB:
     - array index variables should be size_t, let's keep it consistent
@@ -25,17 +33,18 @@ void ft_ls_control(t_ls *state, char **argv)
     filename_args_control(state, argv);
     sort_node_list(state->options, &(state->regular_files));
     sort_node_list(state->options, &(state->directories));
-    state->printing_file_args = TRUE;
-    print_control(state, state->regular_files);
-    state->printing_file_args = FALSE;
+    state->print_buf = (char *) ft_memalloc(BUF_SIZE * sizeof(char));
+    if (!(state->print_buf))
+        print_malloc_error_and_exit();
+    print_filename_args(state);
     iter = state->directories;
     while (iter)
     {
         ft_ls_recursion_control(state, iter->content);
         iter = iter->next;
     }
-    cleanup_lists(state);
+    flush_buf(state);
+    cleanup_lists_and_print_buf(state);
     return ;
-    // printf("%p %p %p\n", state->directories, state->regular_files, state->invalid_args);
 }
 
