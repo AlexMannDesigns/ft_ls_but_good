@@ -22,27 +22,30 @@ void    print_filename_args(t_ls *state)
     return ;
 }
 
-/*
-    NB:
-    - array index variables should be size_t, let's keep it consistent
-*/
-void ft_ls_control(t_ls *state, char **argv)
+void    print_directories(t_ls *state)
 {
     t_list      *iter;
 
-    filename_args_control(state, argv);
-    sort_node_list(state->options, &(state->regular_files));
-    sort_node_list(state->options, &(state->directories));
-    state->print_buf = (char *) ft_memalloc(BUF_SIZE * sizeof(char));
-    if (!(state->print_buf))
-        print_malloc_error_and_exit();
-    print_filename_args(state);
     iter = state->directories;
     while (iter)
     {
         ft_ls_recursion_control(state, iter->content);
         iter = iter->next;
     }
+    return ;
+}
+
+/*
+    NB:
+    - array index variables should be size_t, let's keep it consistent
+*/
+void ft_ls_control(t_ls *state, char **argv)
+{
+    filename_args_control(state, argv);
+    sort_node_list(state->options, &(state->regular_files));
+    sort_node_list(state->options, &(state->directories));
+    print_filename_args(state);
+    print_directories(state);
     flush_buf(state);
     cleanup_lists_and_print_buf(state);
     return ;
