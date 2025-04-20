@@ -1,7 +1,8 @@
 #include "ft_ls.h"
 
 /*
- * The ordering of the functions must be in sync with the display enum
+ * The ordering of the functions in the dispatch table must be in sync with
+ * the t_display enum
 */
 static const t_print_format *get_print_format_handlers(void)
 {

@@ -35,10 +35,6 @@ void    print_directories(t_ls *state)
     return ;
 }
 
-/*
-    NB:
-    - array index variables should be size_t, let's keep it consistent
-*/
 void ft_ls_control(t_ls *state, char **argv)
 {
     filename_args_control(state, argv);

@@ -89,7 +89,7 @@ typedef struct s_ls
 {
     t_options       options;
     t_print         print;
-    unsigned int    argv_index;
+    size_t          argv_index;
     unsigned int    remaining_argv_len;
     unsigned int    testing;
     t_list          *directories;

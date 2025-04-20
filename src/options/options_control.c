@@ -5,11 +5,11 @@ static int  arg_is_options(char *arg)
     return (!(arg[0] != '-' || ft_strequ(arg, "-")));
 }
 
-static int is_double_line(unsigned int *idx, char *arg)
+static int is_double_line(size_t *index, char *arg)
 {
     if (ft_strequ(arg, "--"))
     {
-        (*idx)++;
+        (*index)++;
         return (TRUE);
     }
     return (FALSE);
@@ -24,20 +24,20 @@ static void set_default_options(t_options *options)
 
 int options_control(t_ls *state, char **argv)
 {
-    char            *arg;
-    unsigned int    *idx;
+    char    *arg;
+    size_t  *index;
 
     set_default_options(&(state->options));
-    idx = &(state->argv_index);
-    *idx = 1;
-    while (argv[*idx])
+    index = &(state->argv_index);
+    *index = 1;
+    while (argv[*index])
     {
-        arg = argv[*idx];
-        if (!arg_is_options(arg) || is_double_line(idx, arg))
+        arg = argv[*index];
+        if (!arg_is_options(arg) || is_double_line(index, arg))
             break ;
         if (!set_options_control(state, arg))
             return (FALSE);
-        (*idx)++;
+        (*index)++;
     }
     return (TRUE);
 }
