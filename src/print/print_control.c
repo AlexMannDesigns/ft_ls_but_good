@@ -15,28 +15,23 @@ static const t_print_format *get_print_format_handlers(void)
     return (dispatch_table);
 }
 
-void    print_display_dispatch(t_ls *state, t_list *current)
-{
-    const t_print_format    *print_format_handlers;
-
-    print_format_handlers = get_print_format_handlers();
-    print_format_handlers[state->options.display](state, current);
-    return ;
-}
-
 void    print_control(t_ls *state, t_list *files)
 {
-    t_list      *iter;
-    t_file_info *current;
+    const t_print_format    *print_format_handlers;
+    t_list                  *iter;
+    t_file_info             *current;
+    void                    (*f)(t_ls *, t_list *);
 
     if (!files)
         return ;
+    print_format_handlers = get_print_format_handlers();
+    f = print_format_handlers[state->options.display];
     iter = files;
     while (iter)
     {
         current = (t_file_info *) iter->content;
         if (file_should_be_printed(state, current->path))
-            print_display_dispatch(state, iter);
+            f(state, iter);
         iter = iter->next;
     }
     state->print.print_newline = TRUE;
