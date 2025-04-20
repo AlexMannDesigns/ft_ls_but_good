@@ -3,8 +3,8 @@
 static void setup_state(t_ls *state)
 {
     ft_bzero(state, sizeof(t_ls));
-    state->print_buf = (char *) malloc(BUF_SIZE * sizeof(char));
-    if (!(state->print_buf))
+    state->print.print_buf = (char *) malloc(BUF_SIZE * sizeof(char));
+    if (!(state->print.print_buf))
         print_malloc_error_and_exit();
     return ;
 }

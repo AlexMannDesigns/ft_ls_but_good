@@ -11,12 +11,15 @@
 */
 void    print_linebreak_and_title(t_ls *state, char *directory_name)
 {
-    if (state->print_newline)
-        add_to_buf(state, "\n");
+    t_print *print_ptr;
+
+    print_ptr = &(state->print);
+    if (print_ptr->print_newline)
+        add_to_buf(print_ptr, "\n");
     if (state->remaining_argv_len > 1)
     {
-        add_to_buf(state, directory_name);
-        add_to_buf(state, ":\n");
+        add_to_buf(print_ptr, directory_name);
+        add_to_buf(print_ptr, ":\n");
     }
     return ;
 }

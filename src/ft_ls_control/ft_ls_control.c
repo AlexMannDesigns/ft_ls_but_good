@@ -16,9 +16,9 @@ static void    ft_ls_recursion_control(t_ls *state, t_file_info *dir_info)
 
 void    print_filename_args(t_ls *state)
 {
-    state->printing_file_args = TRUE;
+    state->print.printing_file_args = TRUE;
     print_control(state, state->regular_files);
-    state->printing_file_args = FALSE;
+    state->print.printing_file_args = FALSE;
     return ;
 }
 
@@ -46,7 +46,7 @@ void ft_ls_control(t_ls *state, char **argv)
     sort_node_list(state->options, &(state->directories));
     print_filename_args(state);
     print_directories(state);
-    flush_buf(state);
+    flush_buf(&(state->print));
     cleanup_lists_and_print_buf(state);
     return ;
 }

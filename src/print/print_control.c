@@ -37,8 +37,7 @@ void    print_control(t_ls *state, t_list *files)
         if (file_should_be_printed(state, current->path))
             print_display_dispatch(state, iter);
         iter = iter->next;
-
     }
-    state->print_newline = TRUE;
+    state->print.print_newline = TRUE;
     return ;
 }

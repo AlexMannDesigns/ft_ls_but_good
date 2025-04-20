@@ -1,4 +1,3 @@
-
 #ifndef FT_LS_H
 # define FT_LS_H
 
@@ -9,6 +8,7 @@
 
 /* for t_list struct */
 # include "libft.h"
+
 
 /*** Predefined values ***/
 
@@ -22,6 +22,7 @@
 # define TEST "--TEST"
 
 # define ERROR_FILETYPE "Error: could not find matching file-type, exiting..."
+
 
 /*** Enums ***/
 
@@ -74,27 +75,33 @@ typedef struct s_options
     t_display       display;
     t_sort          sort;
     unsigned int    misc;
-}   t_options;
+}                   t_options;
+
+typedef struct s_print
+{
+    char            *print_buf;
+    size_t          buf_index;
+    unsigned int    print_newline;
+    unsigned int    printing_file_args;
+}                   t_print;
 
 typedef struct s_ls
 {
     t_options       options;
-    unsigned int    print_newline;
+    t_print         print;
     unsigned int    argv_index;
     unsigned int    remaining_argv_len;
     unsigned int    testing;
-    unsigned int    printing_file_args;
     t_list          *directories;
     t_list          *regular_files;
-    char            *print_buf;
-    size_t          buf_idx;
 }                   t_ls;
 
 
 /*** Typedefs ***/
 
-typedef int (*t_option_handler)(t_options *, char);
-typedef void (*t_print_format)(t_ls *, t_list *);
+typedef int     (*t_option_handler)(t_options *, char);
+typedef void    (*t_print_format)(t_ls *, t_list *);
+
 
 /*** Functions ***/
 
@@ -179,8 +186,8 @@ void            print_linebreak_and_title(t_ls *state, char *directory_name);
 
 /* print_utils.c */
 int             file_should_be_printed(t_ls *state, char *path);
-void            add_to_buf(t_ls *state, char *str);
-void            flush_buf(t_ls *state);
+void            add_to_buf(t_print *print, char *str);
+void            flush_buf(t_print *print);
 
 
 /* SORT */

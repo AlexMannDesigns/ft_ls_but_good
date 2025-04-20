@@ -45,7 +45,7 @@ void    cleanup_lists_and_print_buf(t_ls *state)
         free_node_list(&(state->directories));
     if (state->regular_files)
         free_node_list(&(state->regular_files));
-    if (state->print_buf)
-        free(state->print_buf);
+    if (state->print.print_buf)
+        free(state->print.print_buf);
     return ;
 }
