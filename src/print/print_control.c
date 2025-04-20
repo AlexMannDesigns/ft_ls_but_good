@@ -17,10 +17,10 @@ static const t_print_format *get_print_format_handlers(void)
 
 void    print_display_dispatch(t_ls *state, t_list *current)
 {
-    const t_print_format    *format_handlers;
+    const t_print_format    *print_format_handlers;
 
-    format_handlers = get_print_format_handlers();
-    format_handlers[state->options.display](state, current);
+    print_format_handlers = get_print_format_handlers();
+    print_format_handlers[state->options.display](state, current);
     return ;
 }
 
