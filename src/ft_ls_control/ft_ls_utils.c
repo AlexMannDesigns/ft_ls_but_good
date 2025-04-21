@@ -27,3 +27,26 @@ unsigned int    get_file_type(mode_t st_mode)
     exit(EXIT_FAILURE);
 }
 
+unsigned char   get_file_type_char(mode_t st_mode)
+{
+    unsigned int    type;
+
+    type = get_file_type(st_mode);
+    if (type == FIFO)
+        return 'p';
+    if (type == CHAR)
+        return 'c';
+    if (type == DIRECTORY)
+        return 'd';
+    if (type == BLOCK)
+        return 'b';
+    if (type == REGULAR)
+        return '-';
+    if (type == LINK)
+        return 'l';
+    if (type == SOCKET)
+        return 's';
+    if (type == WHITEOUT)
+        return 'w';
+    return '-';
+}

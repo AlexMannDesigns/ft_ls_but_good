@@ -23,6 +23,7 @@
 
 # define ERROR_FILETYPE "Error: could not find matching file-type, exiting..."
 
+# define RWX_CHARS "rwxrwxrwx"
 
 /*** Enums ***/
 
@@ -154,6 +155,7 @@ void            ft_ls_control(t_ls *state, char **argv);
 
 /* ft_ls_utils.c */
 unsigned int    get_file_type(mode_t st_mode);
+unsigned char   get_file_type_char(mode_t st_mode);
 
 /* list_utils.c */
 void            add_node_to_list(t_list **list, char *filename, struct stat sys_file_info);
@@ -187,6 +189,7 @@ void            print_linebreak_and_title(t_ls *state, char *directory_name);
 /* print_utils.c */
 int             file_should_be_printed(t_ls *state, char *path);
 void            add_to_buf(t_print *print, char *str);
+void            add_to_buf_len(t_print *print, char *str, size_t len);
 void            flush_buf(t_print *print);
 
 
