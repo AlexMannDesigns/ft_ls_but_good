@@ -169,6 +169,9 @@ void            cleanup_lists_and_print_buf(t_ls *state);
 
 /* PRINT */
 
+/* file_type_and_permissions.c */
+void            file_type_and_permissions(t_print *print, mode_t mode);
+
 /* print_buf.c */
 void            add_to_buf(t_print *print, char *str);
 void            add_to_buf_len(t_print *print, char *str, size_t len);
