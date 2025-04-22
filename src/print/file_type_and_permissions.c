@@ -45,7 +45,6 @@ void    file_type_and_permissions(t_print *print, mode_t mode)
 {
     const unsigned int  *rwx_macros_table;
     char                rwx_str[11];
-    char                c;
     size_t              i;
 
     rwx_str[10] = '\0';
@@ -54,10 +53,9 @@ void    file_type_and_permissions(t_print *print, mode_t mode)
     i = 0;
     while (rwx_macros_table[i])
     {
-        c = '-';
+        rwx_str[i + 1] = '-';
         if (mode & rwx_macros_table[i])
-            c = RWX_CHARS[i];
-        rwx_str[i + 1] = c;
+            rwx_str[i + 1] = RWX_CHARS[i];
         i++;
     }
     if (mode & S_ISUID)
