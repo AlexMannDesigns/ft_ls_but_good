@@ -1,5 +1,4 @@
 #include "ft_ls.h"
-#include "libft.h"
 
 static const unsigned int *get_rwx_macros_table()
 {
@@ -25,8 +24,8 @@ static void handle_suid_guid_sticky(mode_t mode, char *c, mode_t bits, char new_
     if (mode & bits)
         *c = ft_tolower(new_char);
     return ;
-
 }
+
 /*
  * Each character represents the following. In all cases '-' means no permission:
  * 0 = file type
