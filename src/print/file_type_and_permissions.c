@@ -1,4 +1,5 @@
 #include "ft_ls.h"
+#include "libft.h"
 
 static const unsigned int *get_rwx_macros_table()
 {
@@ -18,6 +19,14 @@ static const unsigned int *get_rwx_macros_table()
     return (rwx_macros);
 }
 
+static void handle_suid_guid_sticky(mode_t mode, char *c, mode_t bits, char new_char)
+{
+    *c = new_char;
+    if (mode & bits)
+        *c = ft_tolower(new_char);
+    return ;
+
+}
 /*
  * Each character represents the following. In all cases '-' means no permission:
  * 0 = file type
@@ -52,9 +61,12 @@ void    file_type_and_permissions(t_print *print, mode_t mode)
         rwx_str[i + 1] = c;
         i++;
     }
-    // rwx_str[3] = handle_set_user_id_mode();
-    // rwx_str[6] = handle_set_group_id_mode();
-    // rwx_str[9] = handle_sticky_bit();
+    if (mode & S_ISUID)
+        handle_suid_guid_sticky(mode, &(rwx_str[3]), S_IXUSR, 'S');
+    if (mode & S_ISGID)
+        handle_suid_guid_sticky(mode, &(rwx_str[6]), S_IXGRP, 'S');
+    if (mode & S_ISVTX)
+        handle_suid_guid_sticky(mode, &(rwx_str[9]), S_IXOTH, 'T');
     add_to_buf_len(print, rwx_str, 10);
     return ;
 }
