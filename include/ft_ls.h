@@ -169,33 +169,36 @@ void            cleanup_lists_and_print_buf(t_ls *state);
 
 /* PRINT */
 
-/* print_comma_format.c */
-void            print_comma_format(t_ls *state, t_list *current);
-
-/* print_one_format.c */
-void            print_one_format(t_ls *state, t_list *current);
-
-/* print_columns_format.c */
-void            print_columns_format(t_ls *state, t_list *current);
-
-/* print_long_format.c */
-void            print_long_format(t_ls *state, t_list *current);
-
-/* print_control.c */
-void            print_control(t_ls *state, t_list *files);
-
-/* print_options_state.c */
-void            print_options_state_and_exit(t_ls state);
-
-/* print_linebreak_and_title.c */
-void            print_linebreak_and_title(t_ls *state, char *directory_name);
-
-/* print_utils.c */
-int             file_should_be_printed(t_ls *state, char *path);
+/* print_buf.c */
 void            add_to_buf(t_print *print, char *str);
 void            add_to_buf_len(t_print *print, char *str, size_t len);
 void            flush_buf(t_print *print);
 void            add_spaces_to_buf(t_print *print, size_t spaces);
+
+/* print_columns_format.c */
+void            print_columns_format(t_ls *state, t_list *current);
+
+/* print_comma_format.c */
+void            print_comma_format(t_ls *state, t_list *current);
+
+/* print_control.c */
+void            print_control(t_ls *state, t_list *files);
+
+/* print_linebreak_and_title.c */
+void            print_linebreak_and_title(t_ls *state, char *directory_name);
+
+/* print_long_format.c */
+void            print_long_format(t_ls *state, t_list *current);
+
+/* print_one_format.c */
+void            print_one_format(t_ls *state, t_list *current);
+
+/* print_options_state.c */
+void            print_options_state_and_exit(t_ls state);
+
+/* print_utils.c */
+int             file_should_be_printed(t_ls *state, char *path);
+unsigned int    get_num_len(unsigned int num);
 
 
 /* SORT */

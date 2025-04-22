@@ -12,40 +12,15 @@ int file_should_be_printed(t_ls *state, char *path)
     return (TRUE);
 }
 
-void    flush_buf(t_print *print)
+unsigned int    get_num_len(unsigned int num)
 {
-    write(STDOUT_FILENO, print->print_buf, print->buf_index);
-    print->buf_index = 0;
-    return ;
-}
+    unsigned int    len;
 
-void    add_to_buf(t_print *print, char *str)
-{
-    size_t  len;
-
-    len = ft_strlen(str);
-    if (print->buf_index + len + 1 >= BUF_SIZE)
-        flush_buf(print);
-    ft_memcpy(print->print_buf + print->buf_index, str, len);
-    print->buf_index += len;
-    return ;
-}
-
-void    add_to_buf_len(t_print *print, char *str, size_t len)
-{
-    if (print->buf_index + len + 1 >= BUF_SIZE)
-        flush_buf(print);
-    ft_memcpy(print->print_buf + print->buf_index, str, len);
-    print->buf_index += len;
-    return ;
-}
-
-void    add_spaces_to_buf(t_print *print, size_t spaces)
-{
-    while (spaces)
+    len = 0;
+    while (num)
     {
-        add_to_buf_len(print, " ", 1);
-        spaces--;
+        num = num / 10;
+        len++;
     }
-    return ;
+    return (len);
 }

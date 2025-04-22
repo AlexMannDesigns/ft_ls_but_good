@@ -66,12 +66,7 @@ void    number_of_links(t_print *print, unsigned int st_nlink)
     char            *links_str;
 
     links = st_nlink;
-    num_len = 0;
-    while (links)
-    {
-        links = links / 10;
-        num_len++;
-    } // create get_num_len() function as we do this in a couple places
+    num_len = get_num_len(links);
     add_spaces_to_buf(print, print->link_width - num_len);
     // let's create an add_int_to_buf() with 64bit unsigned int
     links_str = ft_itoa(st_nlink);

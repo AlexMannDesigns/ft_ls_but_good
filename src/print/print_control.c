@@ -31,7 +31,7 @@ void    get_field_widths(t_ls *state, t_list *files)
     t_list          *iter;
     t_file_info     *current;
     unsigned int    max_links;
-    unsigned int    x;
+    unsigned int    num_len;
 
     zero_field_widths(&(state->print));
     max_links = 0;
@@ -43,13 +43,8 @@ void    get_field_widths(t_ls *state, t_list *files)
             max_links = current->sys_file_info.st_nlink;
         iter = iter->next;
     }
-    x = 0;
-    while (max_links)
-    {
-        max_links = max_links / 10;
-        x++;
-    }  // this should be abstracted to a helper
-    state->print.link_width = x + 2;
+    num_len = get_num_len(max_links);
+    state->print.link_width = num_len + 2;
     return ;
 }
 
