@@ -39,3 +39,13 @@ void    add_to_buf_len(t_print *print, char *str, size_t len)
     print->buf_index += len;
     return ;
 }
+
+void    add_spaces_to_buf(t_print *print, size_t spaces)
+{
+    while (spaces)
+    {
+        add_to_buf_len(print, " ", 1);
+        spaces--;
+    }
+    return ;
+}

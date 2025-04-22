@@ -84,6 +84,10 @@ typedef struct s_print
     size_t          buf_index;
     unsigned int    print_newline;
     unsigned int    printing_file_args;
+    unsigned int    link_width;
+    unsigned int    user_width;
+    unsigned int    group_width;
+    unsigned int    size_width;
 }                   t_print;
 
 typedef struct s_ls
@@ -191,6 +195,7 @@ int             file_should_be_printed(t_ls *state, char *path);
 void            add_to_buf(t_print *print, char *str);
 void            add_to_buf_len(t_print *print, char *str, size_t len);
 void            flush_buf(t_print *print);
+void            add_spaces_to_buf(t_print *print, size_t spaces);
 
 
 /* SORT */
