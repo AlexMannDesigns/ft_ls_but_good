@@ -64,6 +64,13 @@ typedef enum e_misc_bits
 
 /*** Structs ***/
 
+typedef struct s_known_usr_grp
+{
+    unsigned int    usr_grp_id;
+    char            *usr_grp_name_str;
+    size_t          usr_grp_name_len;
+}                   t_known_usr_grp;
+
 typedef struct s_file_info
 {
     char            *command_line;
@@ -103,6 +110,8 @@ typedef struct s_ls
     unsigned int    testing;
     t_list          *directories;
     t_list          *regular_files;
+    t_list          *known_usr;
+    t_list          *known_grp;
 }                   t_ls;
 
 
