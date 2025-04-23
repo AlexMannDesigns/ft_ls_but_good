@@ -18,6 +18,13 @@ void    number_of_links(t_print *print, unsigned int st_nlink)
     return ;
 }
 
+void    user_and_group(t_print *print, t_file_info *file_info)
+{
+    add_spaces_to_buf(print, print->user_width - file_info->user_id_str_len);
+    add_to_buf_len(print, file_info->user_id_str, file_info->user_id_str_len);
+    return ;
+}
+
 /*
  * Here we analyse what's in the file_info (stat) struct to display various
  * metadata about the file.
@@ -39,6 +46,7 @@ void    print_long_format(t_ls *state, t_list *current)
     print_ptr = (t_print *) &(state->print);
     file_type_and_permissions(print_ptr, file_info->sys_file_info.st_mode);
     number_of_links(print_ptr, file_info->sys_file_info.st_nlink);
+    user_and_group(print_ptr, file_info);
     add_to_buf_len(print_ptr, " ", 1);  // for testing DELETE ME
 
 

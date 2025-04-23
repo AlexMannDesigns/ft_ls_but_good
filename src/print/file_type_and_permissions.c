@@ -47,7 +47,6 @@ void    file_type_and_permissions(t_print *print, mode_t mode)
     char                rwx_str[11];
     size_t              i;
 
-    rwx_str[10] = '\0';
     rwx_str[0] = get_file_type_char(mode);
     rwx_macros_table = get_rwx_macros_table();
     i = 0;

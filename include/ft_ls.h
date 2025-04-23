@@ -68,6 +68,10 @@ typedef struct s_file_info
 {
     char            *command_line;
     char            *path;
+    char            *user_id_str;
+    size_t          user_id_str_len;
+    char            *group_id_str;
+    size_t          group_id_str_len;
     struct stat     sys_file_info;
 }                   t_file_info;
 
