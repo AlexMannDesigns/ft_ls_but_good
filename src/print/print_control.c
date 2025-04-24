@@ -114,16 +114,22 @@ void    get_field_widths(t_ls *state, t_list *files)
     while (iter)
     {
         // we need to check file will be printed here
-        current = (t_file_info *) iter->content;
-        if (current->sys_file_info.st_nlink > max_links)
-            max_links = current->sys_file_info.st_nlink;
-        if (current->user_id_str_len > max_user)
-            max_user = current->user_id_str_len;
-        // get_group_name(current);
-        // if (current->group_len > max_group)
-        //     max_group = current->group_len;
+        // let's invert this if check once we've built the helper
+        if (!file_should_be_printed(state, current->path))
+            ;
+        else
+        {
+            current = (t_file_info *) iter->content;
+            if (current->sys_file_info.st_nlink > max_links)
+                max_links = current->sys_file_info.st_nlink;
+            if (current->user_id_str_len > max_user)
+                max_user = current->user_id_str_len;
+            // get_group_name(current);
+            // if (current->group_len > max_group)
+            //     max_group = current->group_len;
 
-        // do likewise for other values width is needed for
+            // do likewise for other values width is needed for
+        }
         iter = iter->next;
     }
     // set field widths in helper
