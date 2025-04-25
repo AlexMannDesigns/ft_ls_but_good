@@ -64,6 +64,14 @@ typedef enum e_misc_bits
 
 /*** Structs ***/
 
+typedef struct  s_max
+{
+    unsigned long   max_links;
+    unsigned long   max_user;
+    unsigned long   max_group;
+    unsigned long   max_size;
+}                   t_max;
+
 typedef struct s_known_usr_grp
 {
     unsigned int    usr_grp_id;
