@@ -185,6 +185,12 @@ void            cleanup_lists_and_print_buf(t_ls *state);
 /* file_type_and_permissions.c */
 void            file_type_and_permissions(t_print *print, mode_t mode);
 
+/* get_field_widths.c */
+void            get_field_widths(t_ls *state, t_list *files);
+
+/* get_usr_and_grp.c */
+void            get_usr_and_grp(t_ls *state, t_list *files);
+
 /* print_buf.c */
 void            add_to_buf(t_print *print, char *str);
 void            add_to_buf_len(t_print *print, char *str, size_t len);

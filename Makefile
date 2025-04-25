@@ -22,6 +22,7 @@ SRC_FILES = main.c \
 		print/print_control.c print/print_linebreak_and_title.c print/print_utils.c \
 		print/print_comma_format.c print/print_one_format.c print/print_columns_format.c \
 		print/print_long_format.c print/print_buf.c print/file_type_and_permissions.c \
+		print/get_usr_and_grp.c print/get_field_widths.c \
 		print_debug/print_options_state.c print_debug/print_node_list.c \
 		sort/compare_values.c sort/sort_node_list.c sort/sort_filename_args.c
 
