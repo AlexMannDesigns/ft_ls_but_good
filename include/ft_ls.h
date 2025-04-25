@@ -16,6 +16,7 @@
 # define FALSE 0
 
 # define BUF_SIZE 4096
+# define SIX_MONTHS_IN_SECONDS 15778463
 
 # define OPTIONS "RSalmnrt1"
 # define USAGE "usage: ./ft_ls [-RSalmnrt] [file ...]"
