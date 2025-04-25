@@ -1,30 +1,14 @@
 #include "ft_ls.h"
-#include "libft.h"
 
-static int is_recursion_dir(t_file_info *file_info)
+static int is_recursion_dir(t_ls *state, t_file_info *file_info)
 {
+    if (!file_should_be_printed(state, file_info->path))
+        return (FALSE);
     if (get_file_type(file_info->sys_file_info.st_mode) == DIRECTORY
         && !ft_strequ(file_info->path, ".")
         && !ft_strequ(file_info->path, ".."))
         return (TRUE);
     return (FALSE);
-}
-
-t_file_info *format_recursion_path(t_file_info *dir_info, char *parent_path)
-{
-    char    *temp;
-    char    *new_path;
-    size_t  len;
-
-    len = ft_strlen(parent_path);
-    temp = ft_strnew(len + 1);
-    ft_strcpy(temp, parent_path);
-    temp[len] = '/';
-    new_path = ft_strjoin(temp, dir_info->path);
-    free(temp);
-    free(dir_info->path);
-    dir_info->path = new_path;
-    return (dir_info);
 }
 
 static void    ft_ls_recursion(t_ls *state, t_file_info *dir_info)
@@ -43,7 +27,7 @@ static void    ft_ls_recursion(t_ls *state, t_file_info *dir_info)
         while (iter)
         {
             current = (t_file_info *) iter->content;
-            if (file_should_be_printed(state, current->path) && is_recursion_dir(current))
+            if (is_recursion_dir(state, current))
                 ft_ls_recursion(state, format_recursion_path(current, dir_info->path));
             iter = iter->next;
         }

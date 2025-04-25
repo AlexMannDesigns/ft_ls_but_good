@@ -50,3 +50,24 @@ unsigned char   get_file_type_char(mode_t st_mode)
         return 'w';
     return '-';
 }
+
+t_file_info *format_recursion_path(t_file_info *dir_info, char *parent_path)
+{
+    char    *temp;
+    char    *new_path;
+    size_t  len;
+
+    len = ft_strlen(parent_path);
+    temp = ft_strnew(len + 1);
+    if (!temp)
+        print_malloc_error_and_exit();
+    ft_strcpy(temp, parent_path);
+    temp[len] = '/';
+    new_path = ft_strjoin(temp, dir_info->path);
+    if (!new_path)
+        print_malloc_error_and_exit();
+    free(temp);
+    free(dir_info->path);
+    dir_info->path = new_path;
+    return (dir_info);
+}

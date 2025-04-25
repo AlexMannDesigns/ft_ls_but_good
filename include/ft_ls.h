@@ -182,6 +182,7 @@ void            ft_ls_control(t_ls *state, char **argv);
 /* ft_ls_utils.c */
 unsigned int    get_file_type(mode_t st_mode);
 unsigned char   get_file_type_char(mode_t st_mode);
+t_file_info     *format_recursion_path(t_file_info *dir_info, char *parent_path);
 
 /* list_utils.c */
 void            add_node_to_list(t_list **list, char *filename, struct stat sys_file_info);
