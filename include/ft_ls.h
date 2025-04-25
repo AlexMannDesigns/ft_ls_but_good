@@ -171,7 +171,7 @@ void            print_invalid_args(char ***invalid_args);
 /* FT_LS_CONTROL */
 
 /* construct_file_list.c */
-t_list          *construct_file_list(t_file_info *dir_info);
+t_list          *construct_file_list(t_ls *state, t_file_info *dir_info);
 
 /* filename_args_control.c */
 void            filename_args_control(t_ls *state, char **argv);

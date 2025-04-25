@@ -37,7 +37,7 @@ static void    read_and_add_file(t_list **list, char *dir_path, char *filename)
  * opendir and readdir loop. This cycles through the contents of a directory
  * and constructs a linked list with the content.
  */
-t_list  *construct_file_list(t_file_info *dir_info)
+t_list  *construct_file_list(t_ls *state, t_file_info *dir_info)
 {
     t_list          *file_list;
     DIR             *directory_stream;
@@ -46,6 +46,8 @@ t_list  *construct_file_list(t_file_info *dir_info)
     directory_stream = opendir(dir_info->path);
     if (directory_stream == NULL)
     {
+        if (check_misc_option_bit(state->options.misc, RECURSIVE))
+            flush_buf(&(state->print));
         print_filename_error(dir_info->path);
         return (NULL);
     }

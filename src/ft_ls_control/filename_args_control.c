@@ -8,12 +8,12 @@ static void    no_filename_args(t_ls *state)
 {
     struct stat sys_file_info;
 
-    if (lstat("./", &sys_file_info) != 0)
+    if (lstat(".", &sys_file_info) != 0)
     {
-        print_filename_error("./");
+        print_filename_error(".");
         return ;
     }
-    add_node_to_list(&(state->directories), "./", sys_file_info);
+    add_node_to_list(&(state->directories), ".", sys_file_info);
     return ;
 }
 

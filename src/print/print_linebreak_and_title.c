@@ -16,7 +16,9 @@ void    print_linebreak_and_title(t_ls *state, char *directory_name)
     print_ptr = &(state->print);
     if (print_ptr->print_newline)
         add_to_buf(print_ptr, "\n");
-    if (state->remaining_argv_len > 1)
+    if (state->remaining_argv_len > 1
+        || (print_ptr->print_newline
+        && check_misc_option_bit(state->options.misc, RECURSIVE)))
     {
         add_to_buf(print_ptr, directory_name);
         add_to_buf(print_ptr, ":\n");
