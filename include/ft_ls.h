@@ -191,15 +191,6 @@ void            cleanup_lists_and_print_buf(t_ls *state);
 
 /* PRINT */
 
-/* file_type_and_permissions.c */
-void            file_type_and_permissions(t_print *print, mode_t mode);
-
-/* get_field_widths.c */
-void            get_field_widths(t_ls *state, t_list *files);
-
-/* get_usr_and_grp.c */
-void            get_usr_and_grp(t_ls *state, t_list *files);
-
 /* print_buf.c */
 void            add_to_buf(t_print *print, char *str);
 void            add_to_buf_len(t_print *print, char *str, size_t len);
@@ -219,9 +210,6 @@ void            print_control(t_ls *state, t_list *files);
 /* print_linebreak_and_title.c */
 void            print_linebreak_and_title(t_ls *state, char *directory_name);
 
-/* print_long_format.c */
-void            print_long_format(t_ls *state, t_list *current);
-
 /* print_one_format.c */
 void            print_one_format(t_ls *state, t_list *current);
 
@@ -231,6 +219,37 @@ void            print_options_state_and_exit(t_ls state);
 /* print_utils.c */
 int             file_should_be_printed(t_ls *state, char *path);
 size_t          get_num_len(unsigned long num);
+
+
+/* PRINT/PRINT_LONG */
+
+/* date_and_time.c */
+void            date_and_time(t_print *print, time_t modified);
+
+/* file_name_and_link.c */
+void            file_name_and_link(t_print *print, t_file_info *file_info);
+
+/* file_size.c */
+void            file_size(t_print *print, unsigned long st_size);
+
+/* file_type_and_permissions.c */
+void            file_type_and_permissions(t_print *print, mode_t mode);
+
+/* get_field_widths.c */
+void            get_field_widths(t_ls *state, t_list *files);
+
+/* get_usr_and_grp.c */
+void            get_usr_and_grp(t_ls *state, t_list *files);
+
+/* number_of_links.c */
+void            number_of_links(t_print *print, unsigned long st_nlink);
+
+/* print_long_format.c */
+void            print_long_format(t_ls *state, t_list *current);
+
+/* user_and_group.c */
+void            user_and_group(t_print *print, t_file_info *file_info);
+
 
 
 /* SORT */

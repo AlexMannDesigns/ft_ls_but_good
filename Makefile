@@ -21,8 +21,12 @@ SRC_FILES = main.c \
 		ft_ls_control/filename_args_control.c ft_ls_control/construct_file_list.c \
 		print/print_control.c print/print_linebreak_and_title.c print/print_utils.c \
 		print/print_comma_format.c print/print_one_format.c print/print_columns_format.c \
-		print/print_long_format.c print/print_buf.c print/file_type_and_permissions.c \
-		print/get_usr_and_grp.c print/get_field_widths.c \
+		print/print_buf.c \
+		print/print_long/date_and_time.c print/print_long/file_name_and_link.c \
+		print/print_long/file_size.c print/print_long/file_type_and_permissions.c \
+		print/print_long/get_field_widths.c print/print_long/get_usr_and_grp.c \
+		print/print_long/number_of_links.c print/print_long/print_long_format.c \
+		print/print_long/user_and_group.c \
 		print_debug/print_options_state.c print_debug/print_node_list.c \
 		sort/compare_values.c sort/sort_node_list.c sort/sort_filename_args.c
 
