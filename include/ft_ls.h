@@ -95,10 +95,10 @@ typedef struct s_print
     size_t          buf_index;
     unsigned int    print_newline;
     unsigned int    printing_file_args;
-    unsigned int    link_width;
-    unsigned int    user_width;
-    unsigned int    group_width;
-    unsigned int    size_width;
+    unsigned long   link_width;
+    unsigned long   user_width;
+    unsigned long   group_width;
+    unsigned long   size_width;
 }                   t_print;
 
 typedef struct s_ls

@@ -16,6 +16,8 @@ size_t  get_num_len(unsigned long num)
 {
     size_t  len;
 
+    if (num == 0)
+        return (1);
     len = 0;
     while (num)
     {
