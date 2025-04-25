@@ -2,19 +2,11 @@
 
 void    number_of_links(t_print *print, unsigned int st_nlink)
 {
-    unsigned int    num_len;
-    unsigned int    links;
-    char            *links_str;
+    unsigned long    links;
 
     links = st_nlink;
-    num_len = get_num_len(links);
-    add_spaces_to_buf(print, print->link_width - num_len);
-    // let's create an add_int_to_buf() with 64bit unsigned int
-    links_str = ft_itoa(st_nlink);
-    if (!links_str)
-        print_malloc_error_and_exit();
-    add_to_buf_len(print, links_str, num_len);
-    free(links_str);
+    add_spaces_to_buf(print, print->link_width - get_num_len(links));
+    add_num_to_buf(print, links);
     return ;
 }
 

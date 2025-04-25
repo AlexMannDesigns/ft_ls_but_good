@@ -47,7 +47,7 @@ void    get_field_widths(t_ls *state, t_list *files)
         iter = iter->next;
     }
     // set field widths in helper
-    state->print.link_width = get_num_len(max_links) + 2;
+    state->print.link_width = (unsigned int) get_num_len(max_links) + 2;
     state->print.user_width = max_user + 1;
     state->print.group_width = max_group + 2;
     // consider setting predefined vals for column padding

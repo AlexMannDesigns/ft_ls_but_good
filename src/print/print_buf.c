@@ -37,3 +37,21 @@ void    add_spaces_to_buf(t_print *print, size_t spaces)
     }
     return ;
 }
+
+void    add_num_to_buf(t_print *print, unsigned long num)
+{
+    char    num_str[2];
+
+	if (num > 9)
+	{
+		add_num_to_buf(print, num / 10);
+		add_num_to_buf(print, num % 10);
+	}
+	else
+	{
+        num_str[0] = (char) num + 48;
+        num_str[1] = '\0';
+		add_to_buf_len(print, num_str, 1);
+	}
+    return ;
+}

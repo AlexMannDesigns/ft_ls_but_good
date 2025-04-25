@@ -12,9 +12,9 @@ int file_should_be_printed(t_ls *state, char *path)
     return (TRUE);
 }
 
-unsigned int    get_num_len(unsigned int num)
+size_t  get_num_len(unsigned long num)
 {
-    unsigned int    len;
+    size_t  len;
 
     len = 0;
     while (num)

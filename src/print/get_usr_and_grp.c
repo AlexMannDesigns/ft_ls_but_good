@@ -102,8 +102,6 @@ static void    check_known_grp(t_list **known_grp_list, t_file_info *current)
     return ;
 }
 
-// create new list in state of know user id's with their corresponding names and
-// name lengths.
 void    get_usr_and_grp(t_ls *state, t_list *files)
 {
     t_list          *iter;

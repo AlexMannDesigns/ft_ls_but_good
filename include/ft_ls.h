@@ -196,6 +196,7 @@ void            add_to_buf(t_print *print, char *str);
 void            add_to_buf_len(t_print *print, char *str, size_t len);
 void            flush_buf(t_print *print);
 void            add_spaces_to_buf(t_print *print, size_t spaces);
+void            add_num_to_buf(t_print *print, unsigned long num);
 
 /* print_columns_format.c */
 void            print_columns_format(t_ls *state, t_list *current);
@@ -220,7 +221,7 @@ void            print_options_state_and_exit(t_ls state);
 
 /* print_utils.c */
 int             file_should_be_printed(t_ls *state, char *path);
-unsigned int    get_num_len(unsigned int num);
+size_t          get_num_len(unsigned long num);
 
 
 /* SORT */
