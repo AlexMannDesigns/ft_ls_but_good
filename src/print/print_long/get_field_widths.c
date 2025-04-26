@@ -1,11 +1,12 @@
 #include "ft_ls.h"
 
-static void zero_field_widths(t_print *print)
+static void zero_field_widths_and_total(t_print *print)
 {
     print->link_width = 0;
     print->user_width = 0;
     print->group_width = 0;
     print->size_width = 0;
+    print->total = 0;
 }
 
 static void check_and_update_max(t_file_info *current, t_max *max)
@@ -25,20 +26,23 @@ static void check_and_update_max(t_file_info *current, t_max *max)
  * For the long format we need to analyse the length of various fields in each
  * file so that we can print the output with nicely aligned columns.
 */
-void    get_field_widths(t_ls *state, t_list *files)
+void    get_field_widths_and_total(t_ls *state, t_list *files)
 {
     t_list          *iter;
     t_file_info     *current;
     t_max           max_lens;
 
-    zero_field_widths(&(state->print));
+    zero_field_widths_and_total(&(state->print));
     ft_bzero((void *) &max_lens, sizeof(t_max));
     iter = files;
     while (iter)
     {
         current = (t_file_info *) iter->content;
         if (file_should_be_printed(state, current->path))
+        {
             check_and_update_max(current, &max_lens);
+            state->print.total += current->sys_file_info.st_blocks;
+        }
         iter = iter->next;
     }
     state->print.link_width = (unsigned long) get_num_len(max_lens.max_links) + 2;

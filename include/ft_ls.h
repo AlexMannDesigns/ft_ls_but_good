@@ -108,6 +108,7 @@ typedef struct s_print
     unsigned long   user_width;
     unsigned long   group_width;
     unsigned long   size_width;
+    unsigned long   total;
 }                   t_print;
 
 typedef struct s_ls
@@ -237,7 +238,7 @@ void            file_size(t_print *print, unsigned long st_size);
 void            file_type_and_permissions(t_print *print, mode_t mode);
 
 /* get_field_widths.c */
-void            get_field_widths(t_ls *state, t_list *files);
+void            get_field_widths_and_total(t_ls *state, t_list *files);
 
 /* get_usr_and_grp.c */
 void            get_usr_and_grp(t_ls *state, t_list *files);
