@@ -8,12 +8,13 @@ static void    no_filename_args(t_ls *state)
 {
     struct stat sys_file_info;
 
+    // TODO optimise away this call to lstat if not long format display
     if (lstat(".", &sys_file_info) != 0)
     {
         print_filename_error(".");
         return ;
     }
-    add_node_to_list(&(state->directories), ".", sys_file_info);
+    add_node_to_list(&(state->directories), ".", sys_file_info, ".");
     return ;
 }
 
@@ -44,10 +45,10 @@ static void    add_to_lists(t_ls *state, char *filename, struct stat file_info)
 {
     if (get_file_type(file_info.st_mode) == DIRECTORY)
     {
-        add_node_to_list(&(state->directories), filename, file_info);
+        add_node_to_list(&(state->directories), filename, file_info, filename);
         return ;
     }
-    add_node_to_list(&(state->regular_files), filename, file_info);
+    add_node_to_list(&(state->regular_files), filename, file_info, filename);
     return ;
 }
 

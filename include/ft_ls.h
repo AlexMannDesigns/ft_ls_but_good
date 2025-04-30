@@ -82,8 +82,9 @@ typedef struct s_known_usr_grp
 
 typedef struct s_file_info
 {
-    char            *command_line;
     char            *path;
+    char            *link;
+    ssize_t         link_len;
     char            *user_id_str;
     size_t          user_id_str_len;
     char            *group_id_str;
@@ -186,7 +187,7 @@ unsigned char   get_file_type_char(mode_t st_mode);
 t_file_info     *format_recursion_path(t_file_info *dir_info, char *parent_path);
 
 /* list_utils.c */
-void            add_node_to_list(t_list **list, char *filename, struct stat sys_file_info);
+void            add_node_to_list(t_list **list, char *filename, struct stat sys_file_info, char *full_path);
 void            free_node_list(t_list **list);
 void            cleanup_lists_and_print_buf(t_ls *state);
 
