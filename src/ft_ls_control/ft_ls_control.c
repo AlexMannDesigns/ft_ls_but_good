@@ -1,4 +1,5 @@
 #include "ft_ls.h"
+#include <stddef.h>
 
 static int is_recursion_dir(t_ls *state, t_file_info *file_info)
 {
@@ -39,6 +40,8 @@ static void    ft_ls_recursion(t_ls *state, t_file_info *dir_info)
 void    print_filename_args(t_ls *state)
 {
     state->print.printing_file_args = TRUE;
+    if (state->options.display == COLUMNS)
+        state->print.list_len = get_list_len(state->regular_files);
     print_control(state, state->regular_files);
     state->print.printing_file_args = FALSE;
     return ;

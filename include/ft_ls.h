@@ -103,6 +103,7 @@ typedef struct s_print
 {
     char            *print_buf;
     size_t          buf_index;
+    size_t          list_len;
     unsigned int    print_newline;
     unsigned int    printing_file_args;
     unsigned long   link_width;
@@ -190,6 +191,7 @@ t_file_info     *format_recursion_path(t_file_info *dir_info, char *parent_path)
 void            add_node_to_list(t_list **list, char *filename, struct stat sys_file_info, char *full_path);
 void            free_node_list(t_list **list);
 void            cleanup_lists_and_print_buf(t_ls *state);
+size_t          get_list_len(t_list *list);
 
 
 /* PRINT */
@@ -202,7 +204,7 @@ void            add_spaces_to_buf(t_print *print, size_t spaces);
 void            add_num_to_buf(t_print *print, unsigned long num);
 
 /* print_columns_format.c */
-void            print_columns_format(t_ls *state, t_list *current);
+void            print_columns_format(t_ls *state, t_list *files);
 
 /* print_comma_format.c */
 void            print_comma_format(t_ls *state, t_list *current);

@@ -26,7 +26,6 @@ static void    read_and_add_file(t_list **list, char *dir_path, char *filename)
     full_path = build_path(dir_path, filename);
     if (!full_path)
         print_malloc_error_and_exit();
-    // TODO optimise away this call to lstat if we're not doing long display
     if (lstat(full_path, &sys_file_info) != 0)
         print_stat_error_and_exit(filename);
     add_node_to_list(list, filename, sys_file_info, full_path);
@@ -53,11 +52,17 @@ t_list  *construct_file_list(t_ls *state, t_file_info *dir_info)
         return (NULL);
     }
     file_list = NULL;
+    state->print.list_len = 0;
     directory_position = readdir(directory_stream);
     while (directory_position != NULL)
     {
-        read_and_add_file(&file_list, dir_info->path, directory_position->d_name);
+        if (file_should_be_printed(state, directory_position->d_name))
+        {
+            read_and_add_file(&file_list, dir_info->path, directory_position->d_name);
+            (state->print.list_len)++;
+        }
         directory_position = readdir(directory_stream);
+
     }
     closedir(directory_stream);
     return (file_list);

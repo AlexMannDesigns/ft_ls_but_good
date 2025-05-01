@@ -36,6 +36,21 @@ void add_node_to_list(t_list **list, char *filename, struct stat sys_file_info, 
     return ;
 }
 
+size_t  get_list_len(t_list *list)
+{
+    size_t  len;
+    t_list  *iter;
+
+    len = 0;
+    iter = list;
+    while (iter)
+    {
+        len++;
+        iter = iter->next;
+    }
+    return (len);
+}
+
 static void    free_file_info(void *file_info_content, size_t n)
 {
     t_file_info *file_info;
