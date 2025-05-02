@@ -1,4 +1,5 @@
 #include "ft_ls.h"
+#include "libft.h"
 
 static void add_link_info(t_file_info *file_info, char *full_path)
 {

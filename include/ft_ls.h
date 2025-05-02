@@ -83,6 +83,7 @@ typedef struct s_known_usr_grp
 typedef struct s_file_info
 {
     char            *path;
+    size_t          path_len;
     char            *link;
     ssize_t         link_len;
     char            *user_id_str;
@@ -111,6 +112,9 @@ typedef struct s_print
     unsigned long   group_width;
     unsigned long   size_width;
     unsigned long   total;
+    size_t          col_width;
+    size_t          num_cols;
+    size_t          rows;
 }                   t_print;
 
 typedef struct s_ls

@@ -17,6 +17,7 @@ static void long_display_setup(t_ls *state, t_list *files)
 static const t_print_format *get_print_format_handlers(void)
 {
     static const t_print_format dispatch_table[] = {
+        print_columns_format,
         print_long_format,
         print_comma_format,
         print_one_format,
