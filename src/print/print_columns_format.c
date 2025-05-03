@@ -25,28 +25,50 @@ size_t  get_term_width(void)
     return ((size_t) w.ws_col);
 }
 
-void    print_filename_column(t_print *print, t_string_with_length filename, size_t width)
+void    print_filename_col(t_print *print, t_string_with_length filename, size_t width)
 {
     add_to_buf_len(print, filename.str, filename.len);
     add_spaces_to_buf(print, width - filename.len);
     return ;
 }
 
+/*
+ * The column calculation is nice and straightforward, we just divide the width
+ * of the terminal by the length of the longest filename. The rows is a little
+ * trickier. The calculation is basically the equivalent of:
+ *      ceil(num_of_files /num_of_cols)
+ * Because C will always round down if the division leaves a remainder. However,
+ * we want to round UP and not use the math library.
+*/
 void    calculate_cols_and_rows(t_print *print, size_t max_len)
 {
-    // calculate num cols
     print->col_width = max_len + 1;
     print->num_cols = (size_t) (get_term_width() / print->col_width);
     if (print->num_cols == 0)
         print->num_cols = 1;
-
-    // calc rows
-    // this is the same as ciel(list_len / num_cols)
     print->rows = (size_t) ((print->list_len + print->num_cols - 1) / print->num_cols);
     return ;
 }
 
-void    print_columns(t_print *print, t_string_with_length *file_names)
+/*
+ * Prints a list of filenames in a multi-column layout.
+ *
+ * The filenames are arranged in the selected sorting order *down* each
+ * column, but printing is performed *across* rows (left to right), to
+ * match traditional `ls` behavior.
+ *
+ * The array `file_names` holds all entries, and is indexed to avoid
+ * repeated traversal. Each row iterates across all columns, calculating
+ * the index for each column using: index = row + (col * total_rows).
+ *
+ * For each valid index, a filename is printed with column-aligned padding.
+ * After each row is complete, a newline is added to the output buffer.
+ *
+ * Parameters:
+ * - print: holds metadata like number of rows, columns, column width, etc.
+ * - files_arr: array of filenames and their lengths, sorted.
+ */
+void    print_columns(t_print *print, t_string_with_length *files_arr)
 {
     size_t row;
     size_t col;
@@ -58,9 +80,9 @@ void    print_columns(t_print *print, t_string_with_length *file_names)
         col = 0;
         while (col < print->num_cols)
         {
-            index = row + col * print->rows;
+            index = row + (col * print->rows);
             if (index < print->list_len)
-                print_filename_column(print, file_names[index], print->col_width);
+                print_filename_col(print, files_arr[index], print->col_width);
             col++;
         }
         add_to_buf_len(print, "\n", 1);
@@ -69,7 +91,7 @@ void    print_columns(t_print *print, t_string_with_length *file_names)
     return ;
 }
 
-size_t  get_max_len_and_populate_file_names(t_list *files, t_string_with_length *file_names)
+size_t  get_max_len_and_populate_file_names(t_list *files, t_string_with_length *files_arr)
 {
     t_list      *iter;
     t_file_info *current;
@@ -85,32 +107,40 @@ size_t  get_max_len_and_populate_file_names(t_list *files, t_string_with_length 
         current->path_len = ft_strlen(current->path);
         if (current->path_len > max_len)
             max_len = current->path_len;
-        file_names[i].str = current->path;
-        file_names[i].len = current->path_len;
+        files_arr[i].str = current->path;
+        files_arr[i].len = current->path_len;
         i++;
         iter = iter->next;
     }
     return (max_len);
 }
 
-// so for this format, the linked list is an issue, as we will have to scan the
-// list each time we print a file name to find the relevant node
-// However, we will need to scan the list before printing anyway, to determine
-// the column width (i.e. find the longest file name). While we do that, we
-// should just copy the path pointer into a char array, which we can then just
-// index into as we print.
-// We can use the list_len var to malloc an array of pointers to the filenames
-// from the linked list.
+/*
+ * To print neatly aligned columns, we follow a three-step process:
+ *
+ * 1. Scan the input list once to determine the longest file name. While doing
+ *    so, we populate an array of (string, length) pairs for efficient random
+ *    access.
+ *
+ * 2. Use the maximum filename length and the terminal width to calculate the
+ *    optimal number of columns and rows.
+ *
+ * 3. Use a row-by-row column-printing algorithm to display the entries in
+ *    lexicographic order *down* each column, while printing line-by-line
+ *    *across* the rows.
+ *
+ * This layout strategy avoids repeated list traversal and ensures optimal
+ * spacing.
+ */
 void    print_columns_format(t_ls *state, t_list *files)
 {
-    t_string_with_length    *file_names;
+    t_string_with_length    *files_arr;
     size_t                  max_len;
 
-    file_names = allocate_file_names_arr(state->print.list_len);
-    max_len = get_max_len_and_populate_file_names(files, file_names);
+    files_arr = allocate_file_names_arr(state->print.list_len);
+    max_len = get_max_len_and_populate_file_names(files, files_arr);
     calculate_cols_and_rows(&(state->print), max_len);
-    print_columns(&(state->print), file_names);
-    free(file_names);
-    state->print.print_newline = TRUE;
+    print_columns(&(state->print), files_arr);
+    free(files_arr);
     return ;
 }

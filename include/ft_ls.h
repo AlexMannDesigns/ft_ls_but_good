@@ -134,7 +134,6 @@ typedef struct s_ls
 /*** Typedefs ***/
 
 typedef int     (*t_option_handler)(t_options *, char);
-typedef void    (*t_print_format)(t_ls *, t_list *);
 
 
 /*** Functions ***/

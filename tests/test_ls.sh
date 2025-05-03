@@ -2,7 +2,7 @@
 
 function test_ls () {
     echo "//----- FT_LS OUTPUT TESTS -----//"
-    
+
     # Test cases array
     TEST_CASES=(
         ""
@@ -30,7 +30,7 @@ function test_ls () {
 
         # convert args to array
         ARGS_ARRAY=($ARG_STRING)
-    
+
         # set up temp files
         FT_LS_OUTPUT=$(mktemp)
         FT_LS_ERROR_OUTPUT=$(mktemp)
@@ -38,24 +38,24 @@ function test_ls () {
         LS_OUTPUT=$(mktemp)
         LS_ERROR_OUTPUT=$(mktemp)
         TMP_FILES+=("$FT_LS_OUTPUT" "$FT_LS_ERROR_OUTPUT" "$FT_LS_ERROR_NORMALIZED" "$LS_OUTPUT" "$LS_ERROR_OUTPUT")
-        
+
         # run test and save output and error output to temp files
         ./ft_ls "${ARGS_ARRAY[@]}" > "$FT_LS_OUTPUT" 2> "$FT_LS_ERROR_OUTPUT"
-        
+
         # run same args through system ls
         # NB '-1' option not needed as we are writing onto a file
-        ls "${ARGS_ARRAY[@]}" > "$LS_OUTPUT" 2> "$LS_ERROR_OUTPUT" 
-       
+        ls "${ARGS_ARRAY[@]}" > "$LS_OUTPUT" 2> "$LS_ERROR_OUTPUT"
+
         # remove the 'ft_' from every line of ft_ls error output
         sed 's/^ft_//' "$FT_LS_ERROR_OUTPUT" > "$FT_LS_ERROR_NORMALIZED"
-        
-        # compare errors 
+
+        # compare errors
         echo "Checking STDOUT..."
         if diff -u "$FT_LS_OUTPUT" "$LS_OUTPUT" > /dev/null; then
             echo "$TEST_PASS"
         else
             echo "$TEST_FAIL"
-            echo "//----- ./ft_ls" "${ARGS_ARRAY[@]}" "-----//" >> "$ERROR_LOG" 
+            echo "//----- ./ft_ls" "${ARGS_ARRAY[@]}" "-----//" >> "$ERROR_LOG"
             diff -u "$FT_LS_OUTPUT" "$LS_OUTPUT" >> "$ERROR_LOG"
             echo "$FT_LS_OUTPUT" >> "$ERROR_LOG"
             echo "" >> "$ERROR_LOG"
@@ -66,7 +66,7 @@ function test_ls () {
             echo "$TEST_PASS"
         else
             echo "$TEST_FAIL"
-            echo "//----- ./ft_ls" "${ARGS_ARRAY[@]}" "-----//" >> "$ERROR_LOG" 
+            echo "//----- ./ft_ls" "${ARGS_ARRAY[@]}" "-----//" >> "$ERROR_LOG"
             diff -u "$FT_LS_ERROR_NORMALIZED" "$LS_ERROR_OUTPUT" >> "$ERROR_LOG"
             echo "$FT_LS_ERROR_NORMALIZED" >> "$ERROR_LOG"
             echo "" >> "$ERROR_LOG"
@@ -90,7 +90,7 @@ TEST_FAIL="${RED}FAIL${NC} ❌"
 ERROR_LOG="test_ls_errors.log"
 > "$ERROR_LOG"
 
-# setup temp files array and cleanup 
+# setup temp files array and cleanup
 TMP_FILES=()
 cleanup() { rm -f "${TMP_FILES[@]}"; }
 trap cleanup EXIT

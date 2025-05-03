@@ -1,5 +1,4 @@
 #include "ft_ls.h"
-#include <stddef.h>
 
 static int is_recursion_dir(t_ls *state, t_file_info *file_info)
 {
