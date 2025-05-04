@@ -63,6 +63,6 @@ void    file_type_and_permissions(t_print *print, mode_t mode)
         handle_suid_guid_sticky(mode, &(rwx_str[6]), S_IXGRP, 'S');
     if (mode & S_ISVTX)
         handle_suid_guid_sticky(mode, &(rwx_str[9]), S_IXOTH, 'T');
-    add_to_buf_len(print, rwx_str, 10);
+    add_to_buf(print, rwx_str, 10);
     return ;
 }

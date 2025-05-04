@@ -7,20 +7,10 @@ void    flush_buf(t_print *print)
     return ;
 }
 
-void    add_to_buf(t_print *print, char *str)
+void    add_to_buf(t_print *print, char *str, size_t len)
 {
-    size_t  len;
-
-    len = ft_strlen(str);
-    if (print->buf_index + len + 1 >= BUF_SIZE)
-        flush_buf(print);
-    ft_memcpy(print->print_buf + print->buf_index, str, len);
-    print->buf_index += len;
-    return ;
-}
-
-void    add_to_buf_len(t_print *print, char *str, size_t len)
-{
+    if (len == 0)
+        len = ft_strlen(str);
     if (print->buf_index + len + 1 >= BUF_SIZE)
         flush_buf(print);
     ft_memcpy(print->print_buf + print->buf_index, str, len);
@@ -32,9 +22,15 @@ void    add_spaces_to_buf(t_print *print, size_t spaces)
 {
     while (spaces)
     {
-        add_to_buf_len(print, " ", 1);
+        add_to_buf(print, " ", 1);
         spaces--;
     }
+    return ;
+}
+
+void    add_nl_to_buf(t_print *print)
+{
+    add_to_buf(print, "\n", 1);
     return ;
 }
 
@@ -51,7 +47,7 @@ void    add_num_to_buf(t_print *print, unsigned long num)
 	{
         num_str[0] = (char) num + 48;
         num_str[1] = '\0';
-		add_to_buf_len(print, num_str, 1);
+		add_to_buf(print, num_str, 1);
 	}
     return ;
 }

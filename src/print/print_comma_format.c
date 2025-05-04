@@ -14,16 +14,16 @@ void    print_comma_format(t_ls *state, t_list *files)
     while (iter)
     {
         content = (t_file_info *) iter->content;
-        add_to_buf(print_ptr, content->path);
+        add_to_buf(print_ptr, content->path, 0);
         if (iter->next)
         {
-            add_to_buf(print_ptr, ", ");
+            add_to_buf(print_ptr, ", ", 2);
             return ;
         }
         if (print_ptr->printing_file_args)
-            add_to_buf(print_ptr, ",");
+            add_to_buf(print_ptr, ",", 1);
         iter = iter->next;
     }
-    add_to_buf(print_ptr, "\n");
+    add_nl_to_buf(print_ptr);
     return ;
 }

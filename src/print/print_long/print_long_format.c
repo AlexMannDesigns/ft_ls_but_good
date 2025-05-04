@@ -5,9 +5,9 @@ static void long_display_setup(t_ls *state, t_list *files)
     // We scan the files twice here, we should probably combine these loops
     get_usr_and_grp(state, files);
     get_field_widths_and_total(state, files);
-    add_to_buf_len(&(state->print), "total ", 6);
+    add_to_buf(&(state->print), "total ", 6);
     add_num_to_buf(&(state->print), state->print.total);
-    add_to_buf_len(&(state->print), "\n", 1);
+    add_nl_to_buf(&(state->print));
     return ;
 }
 

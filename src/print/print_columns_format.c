@@ -27,7 +27,7 @@ size_t  get_term_width(void)
 
 void    print_filename_col(t_print *print, t_string_with_length filename, size_t width)
 {
-    add_to_buf_len(print, filename.str, filename.len);
+    add_to_buf(print, filename.str, filename.len);
     add_spaces_to_buf(print, width - filename.len);
     return ;
 }
@@ -85,7 +85,7 @@ void    print_columns(t_print *print, t_string_with_length *files_arr)
                 print_filename_col(print, files_arr[index], print->col_width);
             col++;
         }
-        add_to_buf_len(print, "\n", 1);
+        add_nl_to_buf(print);
         row++;
     }
     return ;

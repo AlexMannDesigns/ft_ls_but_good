@@ -4,6 +4,7 @@
 /*** Header files ***/
 
 /* for the stat struct */
+#include <stddef.h>
 # include <sys/stat.h>
 
 /* for t_list struct */
@@ -200,11 +201,11 @@ size_t          get_list_len(t_list *list);
 /* PRINT */
 
 /* print_buf.c */
-void            add_to_buf(t_print *print, char *str);
-void            add_to_buf_len(t_print *print, char *str, size_t len);
+void            add_to_buf(t_print *print, char *str, size_t len);
 void            flush_buf(t_print *print);
 void            add_spaces_to_buf(t_print *print, size_t spaces);
 void            add_num_to_buf(t_print *print, unsigned long num);
+void            add_nl_to_buf(t_print *print);
 
 /* print_columns_format.c */
 void            print_columns_format(t_ls *state, t_list *files);
