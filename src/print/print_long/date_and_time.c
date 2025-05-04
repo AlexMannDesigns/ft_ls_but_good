@@ -17,11 +17,11 @@ void    date_and_time(t_print *print, time_t modified)
         add_to_buf(print, time_sub_str, 12);
         return ;
     }
-    ft_memcpy((void *) time_sub_str, (void *) time_str + 4, 7);
+    ft_memcpy((void *) time_sub_str, (void *) time_str + 4, 6);
     ft_memcpy((void *) year, (void *) time_str + 20, 4);
     add_spaces_to_buf(print, 1);
-    add_to_buf(print, time_sub_str, 12);
-    add_spaces_to_buf(print, 1);
+    add_to_buf(print, time_sub_str, 6);
+    add_spaces_to_buf(print, 2);
     add_to_buf(print, year, 4);
     return ;
 }
