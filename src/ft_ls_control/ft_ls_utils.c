@@ -63,11 +63,11 @@ t_file_info *format_recursion_path(t_file_info *dir_info, char *parent_path)
         print_malloc_error_and_exit();
     ft_strcpy(temp, parent_path);
     temp[len] = '/';
-    new_path = ft_strjoin(temp, dir_info->path);
+    new_path = ft_strjoin(temp, dir_info->path.str);
     if (!new_path)
         print_malloc_error_and_exit();
     free(temp);
-    free(dir_info->path);
-    dir_info->path = new_path;
+    free(dir_info->path.str);
+    dir_info->path.str = new_path;
     return (dir_info);
 }

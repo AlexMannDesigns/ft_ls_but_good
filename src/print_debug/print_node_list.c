@@ -11,7 +11,7 @@ void    print_node_list(t_list *list)
     while (list)
     {
         current = list->content;
-        ft_putstr(current->path);
+        ft_putstr(current->path.str);
         if (list->next)
             ft_putstr(", ");
         list = list->next;

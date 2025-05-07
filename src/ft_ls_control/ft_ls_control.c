@@ -2,11 +2,11 @@
 
 static int is_recursion_dir(t_ls *state, t_file_info *file_info)
 {
-    if (!file_should_be_printed(state, file_info->path))
+    if (!file_should_be_printed(state, file_info->path.str))
         return (FALSE);
     if (get_file_type(file_info->sys_file_info.st_mode) == DIRECTORY
-        && !ft_strequ(file_info->path, ".")
-        && !ft_strequ(file_info->path, ".."))
+        && !ft_strequ(file_info->path.str, ".")
+        && !ft_strequ(file_info->path.str, ".."))
         return (TRUE);
     return (FALSE);
 }
@@ -17,7 +17,7 @@ static void    ft_ls_recursion(t_ls *state, t_file_info *dir_info)
     t_list      *iter;
     t_file_info *current;
 
-    print_linebreak_and_title(state, dir_info->path);
+    print_linebreak_and_title(state, dir_info->path.str);
     file_list = construct_file_list(state, dir_info);
     sort_node_list(state->options, &file_list);
     print_control(state, file_list);
@@ -28,7 +28,7 @@ static void    ft_ls_recursion(t_ls *state, t_file_info *dir_info)
         {
             current = (t_file_info *) iter->content;
             if (is_recursion_dir(state, current))
-                ft_ls_recursion(state, format_recursion_path(current, dir_info->path));
+                ft_ls_recursion(state, format_recursion_path(current, dir_info->path.str));
             iter = iter->next;
         }
     }

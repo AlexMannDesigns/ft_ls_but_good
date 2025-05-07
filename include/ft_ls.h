@@ -4,7 +4,6 @@
 /*** Header files ***/
 
 /* for the stat struct */
-#include <stddef.h>
 # include <sys/stat.h>
 
 /* for t_list struct */
@@ -66,6 +65,12 @@ typedef enum e_misc_bits
 
 /*** Structs ***/
 
+typedef struct s_string
+{
+    char    *str;
+    size_t  len;
+}           t_string;
+
 typedef struct  s_max
 {
     unsigned long   max_links;
@@ -77,22 +82,17 @@ typedef struct  s_max
 typedef struct s_known_usr_grp
 {
     unsigned int    usr_grp_id;
-    char            *usr_grp_name_str;
-    size_t          usr_grp_name_len;
+    t_string        usr_grp_str;
 }                   t_known_usr_grp;
 
 typedef struct s_file_info
 {
-    char            *path;
-    size_t          path_len;
-    char            *link;
-    ssize_t         link_len;
-    char            *user_id_str;
-    size_t          user_id_str_len;
-    char            *group_id_str;
-    size_t          group_id_str_len;
-    struct stat     sys_file_info;
-}                   t_file_info;
+    t_string    path;
+    t_string    link;
+    t_string    user_id_str;
+    t_string    group_id_str;
+    struct stat sys_file_info;
+}               t_file_info;
 
 typedef struct s_options
 {
@@ -225,6 +225,9 @@ void            print_one_format(t_ls *state, t_list *current);
 /* print_options_state.c */
 void            print_options_state_and_exit(t_ls state);
 
+
+void            print_node_list(t_list *list); // TODO delete
+
 /* print_utils.c */
 int             file_should_be_printed(t_ls *state, char *path);
 size_t          get_num_len(unsigned long num);
@@ -278,4 +281,9 @@ void            sort_filename_args(char **args);
 /* test_utils.c */
 unsigned int    check_testing(int argc, char **argv);
 
+
+/* UTILS */
+
+/* string.c */
+t_string    create_string(char *str, size_t len);
 # endif

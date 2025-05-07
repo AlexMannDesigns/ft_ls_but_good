@@ -1,17 +1,11 @@
 #include "ft_ls.h"
 #include <sys/ioctl.h>
 
-typedef struct s_string_with_length
+t_string *allocate_file_names_arr(size_t len)
 {
-    char    *str;
-    size_t  len;
-}           t_string_with_length;
+    t_string    *file_names;
 
-t_string_with_length    *allocate_file_names_arr(size_t len)
-{
-    t_string_with_length *file_names;
-
-    file_names = (t_string_with_length *) malloc(sizeof(t_string_with_length) * len);
+    file_names = (t_string *) malloc(sizeof(t_string) * len);
     if (!file_names)
         print_malloc_error_and_exit();
     return (file_names);
@@ -25,7 +19,7 @@ size_t  get_term_width(void)
     return ((size_t) w.ws_col);
 }
 
-void    print_filename_col(t_print *print, t_string_with_length filename, size_t width)
+void    print_filename_col(t_print *print, t_string filename, size_t width)
 {
     add_to_buf(print, filename.str, filename.len);
     add_spaces_to_buf(print, width - filename.len);
@@ -68,7 +62,7 @@ void    calculate_cols_and_rows(t_print *print, size_t max_len)
  * - print: holds metadata like number of rows, columns, column width, etc.
  * - files_arr: array of filenames and their lengths, sorted.
  */
-void    print_columns(t_print *print, t_string_with_length *files_arr)
+void    print_columns(t_print *print, t_string *files_arr)
 {
     size_t row;
     size_t col;
@@ -91,7 +85,7 @@ void    print_columns(t_print *print, t_string_with_length *files_arr)
     return ;
 }
 
-size_t  get_max_len_and_populate_file_names(t_list *files, t_string_with_length *files_arr)
+size_t  get_max_len_and_populate_file_names(t_list *files, t_string *files_arr)
 {
     t_list      *iter;
     t_file_info *current;
@@ -104,11 +98,9 @@ size_t  get_max_len_and_populate_file_names(t_list *files, t_string_with_length 
     while (iter)
     {
         current = (t_file_info *) iter->content;
-        current->path_len = ft_strlen(current->path);
-        if (current->path_len > max_len)
-            max_len = current->path_len;
-        files_arr[i].str = current->path;
-        files_arr[i].len = current->path_len;
+        if (current->path.len > max_len)
+            max_len = current->path.len;
+        files_arr[i] = current->path;
         i++;
         iter = iter->next;
     }
@@ -134,8 +126,8 @@ size_t  get_max_len_and_populate_file_names(t_list *files, t_string_with_length 
  */
 void    print_columns_format(t_ls *state, t_list *files)
 {
-    t_string_with_length    *files_arr;
-    size_t                  max_len;
+    t_string    *files_arr;
+    size_t      max_len;
 
     files_arr = allocate_file_names_arr(state->print.list_len);
     max_len = get_max_len_and_populate_file_names(files, files_arr);

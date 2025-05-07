@@ -13,10 +13,10 @@ static void check_and_update_max(t_file_info *current, t_max *max)
 {
     if (current->sys_file_info.st_nlink > max->max_links)
         max->max_links = current->sys_file_info.st_nlink;
-    if (current->user_id_str_len > max->max_user)
-        max->max_user = current->user_id_str_len;
-    if (current->group_id_str_len > max->max_group)
-        max->max_group = current->group_id_str_len;
+    if (current->user_id_str.len > max->max_user)
+        max->max_user = current->user_id_str.len;
+    if (current->group_id_str.len > max->max_group)
+        max->max_group = current->group_id_str.len;
     if ((unsigned long) current->sys_file_info.st_size > max->max_size)
         max->max_size = (unsigned long) current->sys_file_info.st_size;
     return ;
@@ -38,7 +38,7 @@ void    get_field_widths_and_total(t_ls *state, t_list *files)
     while (iter)
     {
         current = (t_file_info *) iter->content;
-        if (file_should_be_printed(state, current->path))
+        if (file_should_be_printed(state, current->path.str))
         {
             check_and_update_max(current, &max_lens);
             state->print.total += current->sys_file_info.st_blocks;

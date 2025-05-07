@@ -9,7 +9,7 @@ void    print_one_format(t_ls *state, t_list *files)
     while (iter)
     {
         content = (t_file_info *) iter->content;
-        add_to_buf(&(state->print), content->path, 0);
+        add_to_buf(&(state->print), content->path.str, content->path.len);
         add_nl_to_buf(&(state->print));
         iter = iter->next;
     }

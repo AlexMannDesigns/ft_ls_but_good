@@ -28,7 +28,8 @@ SRC_FILES = main.c \
 		print/print_long/number_of_links.c print/print_long/print_long_format.c \
 		print/print_long/user_and_group.c \
 		print_debug/print_options_state.c print_debug/print_node_list.c \
-		sort/compare_values.c sort/sort_node_list.c sort/sort_filename_args.c
+		sort/compare_values.c sort/sort_node_list.c sort/sort_filename_args.c \
+		utils/string.c
 
 OBJ_DIR = ./obj
 OBJS := $(patsubst %, $(OBJ_DIR)/%, $(SRC_FILES:.c=.o))

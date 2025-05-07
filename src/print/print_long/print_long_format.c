@@ -48,7 +48,7 @@ void    print_long_format(t_ls *state, t_list *files)
     while (iter)
     {
         file_info = (t_file_info *) iter->content;
-        if (file_should_be_printed(state, file_info->path))
+        if (file_should_be_printed(state, file_info->path.str))
             print_long_format_control(print_ptr, file_info);
         iter = iter->next;
     }

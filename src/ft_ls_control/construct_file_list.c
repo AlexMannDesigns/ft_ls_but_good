@@ -1,24 +1,23 @@
 #include "ft_ls.h"
 #include <dirent.h>
 
-static char    *build_path(char *path, char *d_name)
+static char    *build_path(t_string path, char *d_name)
 {
     char        *path_with_slash;
     char        *full_path;
-    size_t      path_len;
 
-    path_len = ft_strlen(path);
-    path_with_slash = ft_strnew(path_len + 1);
+    path_with_slash = ft_strnew(path.len + 1);
     if (!path_with_slash)
         print_malloc_error_and_exit();
-    ft_strcpy(path_with_slash, path);
-    path_with_slash[path_len] = '/';
+    ft_strcpy(path_with_slash, path.str);
+    // TODO fix for when path already ends with a /
+    path_with_slash[path.len] = '/';
     full_path = ft_strjoin(path_with_slash, d_name);
     free(path_with_slash);
     return (full_path);
 }
 
-static void    read_and_add_file(t_list **list, char *dir_path, char *filename)
+static void    read_and_add_file(t_list **list, t_string dir_path, char *filename)
 {
     struct stat sys_file_info;
     char        *full_path;
@@ -43,12 +42,12 @@ t_list  *construct_file_list(t_ls *state, t_file_info *dir_info)
     DIR             *directory_stream;
     struct dirent   *directory_position;
 
-    directory_stream = opendir(dir_info->path);
+    directory_stream = opendir(dir_info->path.str);
     if (directory_stream == NULL)
     {
         if (check_misc_option_bit(state->options.misc, RECURSIVE))
             flush_buf(&(state->print));
-        print_filename_error(dir_info->path);
+        print_filename_error(dir_info->path.str);
         return (NULL);
     }
     file_list = NULL;
@@ -58,11 +57,12 @@ t_list  *construct_file_list(t_ls *state, t_file_info *dir_info)
     {
         if (file_should_be_printed(state, directory_position->d_name))
         {
+            // TODO the length of the filename is also in directory_position -
+            // we should refactor to make use of this to avoid extra looping.
             read_and_add_file(&file_list, dir_info->path, directory_position->d_name);
             (state->print.list_len)++;
         }
         directory_position = readdir(directory_stream);
-
     }
     closedir(directory_stream);
     return (file_list);

@@ -14,7 +14,7 @@ void    print_comma_format(t_ls *state, t_list *files)
     while (iter)
     {
         content = (t_file_info *) iter->content;
-        add_to_buf(print_ptr, content->path, 0);
+        add_to_buf(print_ptr, content->path.str, content->path.len);
         if (iter->next)
         {
             add_to_buf(print_ptr, ", ", 2);

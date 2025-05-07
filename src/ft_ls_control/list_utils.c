@@ -1,17 +1,15 @@
 #include "ft_ls.h"
-#include "libft.h"
 
 static void add_link_info(t_file_info *file_info, char *full_path)
 {
-    char        link_path[PATH_MAX];
+    char    link_path[PATH_MAX];
+    int     link_len;
 
-    file_info->link_len = readlink(full_path, link_path, PATH_MAX);
-    if (file_info->link_len == -1)
+    link_len = readlink(full_path, link_path, PATH_MAX);
+    if (link_len == -1)
         exit(EXIT_FAILURE);  // handle this error properly
-    link_path[file_info->link_len] = '\0';
-    file_info->link = ft_strdup(link_path);
-    if (!file_info->link)
-        print_malloc_error_and_exit();
+    link_path[link_len] = '\0';
+    file_info->link = create_string(link_path, (size_t) link_len);
     return ;
 }
 
@@ -22,9 +20,7 @@ void add_node_to_list(t_list **list, char *filename, struct stat sys_file_info, 
 
     ft_bzero((void *) &file_info, sizeof(t_file_info));
     file_info.sys_file_info = sys_file_info;
-    file_info.path = ft_strdup(filename);
-    if (!file_info.path)
-        print_malloc_error_and_exit();
+    file_info.path = create_string(filename, ft_strlen(filename));
     if (get_file_type(sys_file_info.st_mode) == LINK)
         add_link_info(&file_info, full_path);
     new_node = ft_lstnew((void *) &file_info, sizeof(t_file_info));
@@ -58,10 +54,10 @@ static void    free_file_info(void *file_info_content, size_t n)
 
     (void) n;
     file_info = (void *) file_info_content;
-    if (file_info->path)
-        ft_strdel(&(file_info->path));
-    if (file_info->link)
-        ft_strdel(&(file_info->link));
+    if (file_info->path.str)
+        ft_strdel(&(file_info->path.str));
+    if (file_info->link.str)
+        ft_strdel(&(file_info->link.str));
     return ;
 }
 
@@ -71,8 +67,8 @@ static void    free_usr_grp_info(void *usr_grp_info_content, size_t n)
 
     (void) n;
     usr_grp_info = (void *) usr_grp_info_content;
-    if (usr_grp_info->usr_grp_name_str)
-        ft_strdel(&(usr_grp_info->usr_grp_name_str));
+    if (usr_grp_info->usr_grp_str.str)
+        ft_strdel(&(usr_grp_info->usr_grp_str.str));
     return ;
 }
 
