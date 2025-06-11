@@ -1,6 +1,19 @@
 #include "ft_ls.h"
 #include <dirent.h>
 
+static t_list   *handle_permission_denied(t_ls *state, t_file_info *dir_info)
+{
+    if (check_misc_option_bit(state->options.misc, RECURSIVE))
+        flush_buf(&(state->print));
+    if (state->options.display == LONG)
+    {
+        print_total(&(state->print), 0UL);
+        flush_buf(&(state->print));
+    }
+    print_filename_error(dir_info->path.str);
+    return (NULL);
+}
+
 static char    *build_path(t_string path, char *d_name)
 {
     char        *path_with_slash;
@@ -44,12 +57,7 @@ t_list  *construct_file_list(t_ls *state, t_file_info *dir_info)
 
     directory_stream = opendir(dir_info->path.str);
     if (directory_stream == NULL)
-    {
-        if (check_misc_option_bit(state->options.misc, RECURSIVE))
-            flush_buf(&(state->print));
-        print_filename_error(dir_info->path.str);
-        return (NULL);
-    }
+        return (handle_permission_denied(state, dir_info));
     file_list = NULL;
     state->print.list_len = 0;
     directory_position = readdir(directory_stream);

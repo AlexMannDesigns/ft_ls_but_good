@@ -26,3 +26,11 @@ size_t  get_num_len(unsigned long num)
     }
     return (len);
 }
+
+void    print_total(t_print *print, unsigned long total)
+{
+    add_to_buf(print, "total ", 6);
+    add_num_to_buf(print, total);
+    add_nl_to_buf(print);
+    return ;
+}

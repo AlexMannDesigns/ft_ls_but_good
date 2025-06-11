@@ -231,6 +231,7 @@ void            print_node_list(t_list *list); // TODO delete
 /* print_utils.c */
 int             file_should_be_printed(t_ls *state, char *path);
 size_t          get_num_len(unsigned long num);
+void            print_total(t_print *print, size_t total);
 
 
 /* PRINT/PRINT_LONG */

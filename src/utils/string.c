@@ -5,7 +5,7 @@ t_string    create_string(char *str, size_t len)
     t_string    string;
 
     if (str == NULL)
-        exit(EXIT_FAILURE); // handle this properly...
+        exit(EXIT_FAILURE);  // TODO handle this properly...
     if (len == 0)
         string.len = ft_strlen(str);
     else
