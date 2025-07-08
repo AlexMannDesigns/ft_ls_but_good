@@ -125,6 +125,25 @@ function test_ls_l () {
     done
 }
 
+function test_ls_R () {
+    echo "//----- FT_LS -R OUTPUT TESTS -----//"
+
+    # Test cases array
+    TEST_CASES=(
+        "-R "
+        "-R ${HOME}/.gnupg/"
+    )
+
+    # Number of tests
+    NUM_TESTS=${#TEST_CASES[@]}
+
+    for (( i=0; i<$NUM_TESTS; i++ )); do
+        ARG_STRING="${TEST_CASES[$i]}"
+        echo "test case: [ ./ft_ls $ARG_STRING ]"
+        tester "$ARG_STRING"
+    done
+
+}
 ##### Test Script starts here #####
 
 # global vars
@@ -146,3 +165,4 @@ trap cleanup EXIT
 
 test_ls
 test_ls_l
+test_ls_R
