@@ -23,7 +23,6 @@ static char    *build_path(t_string path, char *d_name)
     if (!path_with_slash)
         print_malloc_error_and_exit();
     ft_strcpy(path_with_slash, path.str);
-    // TODO fix for when path already ends with a /
     path_with_slash[path.len] = '/';
     full_path = ft_strjoin(path_with_slash, d_name);
     free(path_with_slash);

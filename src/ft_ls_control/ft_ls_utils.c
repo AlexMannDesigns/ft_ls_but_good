@@ -69,5 +69,6 @@ t_file_info *format_recursion_path(t_file_info *dir_info, char *parent_path)
     free(temp);
     free(dir_info->path.str);
     dir_info->path.str = new_path;
+    dir_info->path.len = dir_info->path.len + len + 1;
     return (dir_info);
 }
