@@ -62,7 +62,10 @@ t_file_info *format_recursion_path(t_file_info *dir_info, char *parent_path)
     if (!temp)
         print_malloc_error_and_exit();
     ft_strcpy(temp, parent_path);
-    temp[len] = '/';
+    if (temp[len - 1] != '/')
+        temp[len] = '/';
+    else
+        len -= 1;
     new_path = ft_strjoin(temp, dir_info->path.str);
     if (!new_path)
         print_malloc_error_and_exit();
